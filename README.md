@@ -1,5 +1,8 @@
 # markcv
 
+[![CI](https://github.com/phuthuycoding/markcv/actions/workflows/ci.yml/badge.svg)](https://github.com/phuthuycoding/markcv/actions/workflows/ci.yml)
+[![npm](https://img.shields.io/npm/v/markcv.svg)](https://www.npmjs.com/package/markcv)
+
 Build a CV from Markdown — a CLI **and** an MCP server for AI agents.
 
 Two things set it apart from ordinary markdown→PDF tools:
@@ -214,6 +217,28 @@ Plain Markdown. The only convention lives in the header:
 ## Themes
 
 `classic` (default) and `compact`. Both are single-column, emoji-free, with a real text layer — safe for ATS parsers.
+
+## Releasing
+
+Publishing runs from GitHub Actions, not from a laptop.
+
+**One-time setup**
+
+1. Create an npm access token of type **Automation** (npmjs.com → Access Tokens).
+2. Add it to the repo as the secret `NPM_TOKEN` (Settings → Secrets and variables → Actions).
+3. Optional: create an environment named `npm` (Settings → Environments) and add a
+   required reviewer, so every publish needs a human approval.
+
+**Cutting a release**
+
+1. Bump `version` in `package.json` and commit it.
+2. Tag and publish a GitHub Release, e.g. `v0.1.0` — the tag must match the version
+   in `package.json` or the workflow stops.
+3. `publish.yml` runs build + tests, refuses to republish an existing version, and
+   publishes with `--provenance` so npm can attest the package came from this repo.
+
+To rehearse without publishing, run the **Publish to npm** workflow manually with
+`dry_run` left on.
 
 ## License
 

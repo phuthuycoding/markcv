@@ -1,0 +1,66 @@
+name: Publish to npm
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Run every check but do not actually publish"
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+  id-token: write        # required for npm provenance
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: npm      # add a required reviewer here if you want a manual gate
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+      - run: npm test
+
+      # A release tagged v1.2.3 must match "version": "1.2.3" in package.json.
+      # Publishing a mismatched version is painful to undo, so stop here instead.
+      - name: Check tag matches package version
+        if: github.event_name == 'release'
+        run: |
+          TAG="${GITHUB_REF_NAME#v}"
+          PKG=$(node -p "require('./package.json').version")
+          echo "tag=$TAG package.json=$PKG"
+          if [ "$TAG" != "$PKG" ]; then
+            echo "::error::Tag $GITHUB_REF_NAME does not match package.json version $PKG"
+            exit 1
+          fi
+
+      - name: Refuse to republish an existing version
+        run: |
+          PKG_NAME=$(node -p "require('./package.json').name")
+          PKG_VER=$(node -p "require('./package.json').version")
+          if npm view "$PKG_NAME@$PKG_VER" version > /dev/null 2>&1; then
+            echo "::error::$PKG_NAME@$PKG_VER is already on npm. Bump the version first."
+            exit 1
+          fi
+          echo "$PKG_NAME@$PKG_VER is free to publish."
+
+      - name: Publish (dry run)
+        if: github.event_name == 'workflow_dispatch' && inputs.dry_run
+        run: npm publish --dry-run --access public
+
+      - name: Publish
+        if: github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && !inputs.dry_run)
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

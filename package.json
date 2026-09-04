@@ -14,7 +14,8 @@
   "files": [
     "dist",
     "themes",
-    "README.md"
+    "README.md",
+    "LICENSE"
   ],
   "engines": {
     "node": ">=18"
