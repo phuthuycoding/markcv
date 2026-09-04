@@ -24,7 +24,8 @@
     "dev": "tsc --watch",
     "mcp": "node dist/mcp/server.js",
     "test": "node --test test/*.test.js",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "prepare": "npm run build"
   },
   "keywords": [
     "cv",
@@ -46,5 +47,14 @@
     "@types/markdown-it": "^14.1.2",
     "@types/node": "^22.10.0",
     "typescript": "^5.7.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phuthuycoding/markcv.git"
+  },
+  "bugs": {
+    "url": "https://github.com/phuthuycoding/markcv/issues"
+  },
+  "homepage": "https://github.com/phuthuycoding/markcv#readme",
+  "author": "phuthuycoding"
 }

@@ -105,6 +105,33 @@ claude mcp list          # confirm it connected
 
 **Cursor** — `.cursor/mcp.json` in the project, same shape.
 
+### Shorter command with `npm link`
+
+Instead of an absolute path to `dist/mcp/server.js`, symlink the package globally:
+
+```bash
+cd markcv
+npm link
+```
+
+`markcv` and `markcv-mcp` are then on your PATH, and the config collapses to:
+
+```json
+{ "mcpServers": { "markcv": { "command": "markcv-mcp", "cwd": "/path/to/your/cv/folder" } } }
+```
+
+### Running straight from GitHub
+
+Works without publishing, because `prepare` builds on install:
+
+```bash
+npx -y --package=github:phuthuycoding/markcv markcv-mcp
+```
+
+Fine for a one-off try, but not ideal as a permanent MCP entry: the server is
+spawned every time the client starts, and npx re-resolves and rebuilds the
+package each time. Prefer `npm link` locally, or install from npm once published.
+
 ### Once published to npm
 
 ```bash
@@ -112,9 +139,7 @@ npm install -g markcv
 ```
 
 ```json
-{
-  "mcpServers": { "markcv": { "command": "markcv-mcp" } }
-}
+{ "mcpServers": { "markcv": { "command": "markcv-mcp" } } }
 ```
 
 ### File paths in tool arguments
