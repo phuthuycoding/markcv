@@ -3,6 +3,12 @@
 [![CI](https://github.com/phuthuycoding/markcv/actions/workflows/ci.yml/badge.svg)](https://github.com/phuthuycoding/markcv/actions/workflows/ci.yml)
 [![npm](https://img.shields.io/npm/v/markcv.svg)](https://www.npmjs.com/package/markcv)
 
+<p align="center">
+  <img src="docs/screenshots/engineering-lead.png" width="640" alt="A CV rendered by markcv">
+  <br>
+  <sub><code>examples/engineering-lead.md</code> — plain Markdown in, two-page A4 PDF out</sub>
+</p>
+
 Build a CV from Markdown — a CLI **and** an MCP server for AI agents.
 
 Two things set it apart from ordinary markdown→PDF tools:
@@ -60,6 +66,34 @@ Suggestions:
 | `no-metric` | a long bullet with no number in it |
 | `ats-emoji` | emoji in a heading — risky for ATS parsers |
 | `long-bullet` | a bullet long enough that skimmers will skip it |
+
+## Examples
+
+Three complete CVs in [`examples/`](examples), written for different roles so you can see
+how the same format stretches. Each one builds with the default theme and no photo.
+
+<table>
+<tr>
+<td width="33%"><a href="docs/screenshots/backend-engineer.png"><img src="docs/screenshots/backend-engineer.png" alt="Backend engineer CV"></a></td>
+<td width="33%"><a href="docs/screenshots/engineering-lead.png"><img src="docs/screenshots/engineering-lead.png" alt="Engineering lead CV"></a></td>
+<td width="33%"><a href="docs/screenshots/data-scientist.png"><img src="docs/screenshots/data-scientist.png" alt="Data scientist CV"></a></td>
+</tr>
+<tr>
+<td align="center"><a href="examples/backend-engineer.md">backend-engineer.md</a><br><sub>1 page</sub></td>
+<td align="center"><a href="examples/engineering-lead.md">engineering-lead.md</a><br><sub>2 pages</sub></td>
+<td align="center"><a href="examples/data-scientist.md">data-scientist.md</a><br><sub>1 page</sub></td>
+</tr>
+</table>
+
+Build them yourself:
+
+```bash
+markcv build examples --pages 2
+```
+
+Note what the bullets in those samples have in common: a number, or a before and after.
+`lint` exists to push a CV in that direction — the samples are what it is aiming at, and
+[`test/fixtures/bad-cv.md`](test/fixtures/bad-cv.md) is what it is aiming away from.
 
 ## MCP server
 

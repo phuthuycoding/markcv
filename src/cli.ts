@@ -65,7 +65,8 @@ program
     });
     console.log(ok(`PDF  ${res.pdfPath}`));
     if (o.html) console.log(info(`HTML ${res.htmlPath}`));
-    console.log(info(`photo ${res.photoFile ? basename(res.photoFile) : "none (placeholder box)"}`));
+    const photoNote = o.photo === false ? "disabled" : res.photoFile ? basename(res.photoFile) : "none (placeholder box)";
+    console.log(info(`photo ${photoNote}`));
     if (res.photoWarning) console.log(warn(res.photoWarning));
     const fit = analyseFit(res.measure, res.pageBox, res.pdfPages ?? 0, o.pages);
     printFit(fit);
