@@ -19,8 +19,13 @@ Two things set it apart from ordinary markdown→PDF tools:
 ## Install
 
 ```bash
-npm install -g markcv
+git clone https://github.com/phuthuycoding/markcv.git
+cd markcv
+npm install          # builds dist/ via the prepare script
+npm link             # puts `markcv` and `markcv-mcp` on your PATH
 ```
+
+Once it is on npm this becomes `npm install -g markcv`.
 
 Requires a Chromium-based browser already on your machine (Chrome, Chromium, Edge, Brave). markcv deliberately does **not** download its own Chromium — it uses `puppeteer-core`, so the install stays small. If your browser lives somewhere unusual, point at it with `MARKCV_CHROME=/path/to/chrome`.
 
@@ -118,24 +123,19 @@ Note what the bullets in those samples have in common: a number, or a before and
 
 Lets an AI agent (Claude Code, Claude Desktop, Cursor…) build and audit CVs on its own.
 
-### Install from source
+Install it first (see [Install](#install) above), then point a client at `markcv-mcp`.
+
+Check the server starts (it waits for JSON-RPC on stdin and prints nothing — that is
+correct; Ctrl+C to quit):
 
 ```bash
-git clone https://github.com/phuthuycoding/markcv.git
-cd markcv
-npm install
-npm run build          # produces dist/
-```
-
-Check the server starts (it waits for JSON-RPC on stdin and prints nothing — that is correct; Ctrl+C to quit):
-
-```bash
-node dist/mcp/server.js
+markcv-mcp
 ```
 
 ### Register it with a client
 
-The repo ships `.mcp.json.example` — copy it and fix the paths for your machine. Always use an **absolute path** to `dist/mcp/server.js`.
+After `npm link` the command is simply `markcv-mcp`. Without it, use an **absolute path**
+to `dist/mcp/server.js`. The repo ships `.mcp.json.example` to copy from.
 
 **Claude Code** — add to `.mcp.json` in your project (shared with the team), or `~/.claude.json` (just you):
 
@@ -143,8 +143,8 @@ The repo ships `.mcp.json.example` — copy it and fix the paths for your machin
 {
   "mcpServers": {
     "markcv": {
-      "command": "node",
-      "args": ["/path/to/markcv/dist/mcp/server.js"]
+      "command": "markcv-mcp",
+      "cwd": "/path/to/your/cv/folder"
     }
   }
 }
@@ -153,50 +153,15 @@ The repo ships `.mcp.json.example` — copy it and fix the paths for your machin
 Or add it from the command line:
 
 ```bash
-claude mcp add markcv -- node /path/to/markcv/dist/mcp/server.js
+claude mcp add markcv -- markcv-mcp
 claude mcp list          # confirm it connected
 ```
+
+Restart the client afterwards so it picks the server up.
 
 **Claude Desktop** — `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) or `%APPDATA%\Claude\claude_desktop_config.json` (Windows), same `mcpServers` shape, then restart the app.
 
 **Cursor** — `.cursor/mcp.json` in the project, same shape.
-
-### Shorter command with `npm link`
-
-Instead of an absolute path to `dist/mcp/server.js`, symlink the package globally:
-
-```bash
-cd markcv
-npm link
-```
-
-`markcv` and `markcv-mcp` are then on your PATH, and the config collapses to:
-
-```json
-{ "mcpServers": { "markcv": { "command": "markcv-mcp", "cwd": "/path/to/your/cv/folder" } } }
-```
-
-### Running straight from GitHub
-
-Works without publishing, because `prepare` builds on install:
-
-```bash
-npx -y --package=github:phuthuycoding/markcv markcv-mcp
-```
-
-Fine for a one-off try, but not ideal as a permanent MCP entry: the server is
-spawned every time the client starts, and npx re-resolves and rebuilds the
-package each time. Prefer `npm link` locally, or install from npm once published.
-
-### Once published to npm
-
-```bash
-npm install -g markcv
-```
-
-```json
-{ "mcpServers": { "markcv": { "command": "markcv-mcp" } } }
-```
 
 ### File paths in tool arguments
 
@@ -270,28 +235,6 @@ Plain Markdown. The only convention lives in the header:
 ## Themes
 
 `classic` (default) and `compact`. Both are single-column, emoji-free, with a real text layer — safe for ATS parsers.
-
-## Releasing
-
-Publishing runs from GitHub Actions, not from a laptop.
-
-**One-time setup**
-
-1. Create an npm access token of type **Automation** (npmjs.com → Access Tokens).
-2. Add it to the repo as the secret `NPM_TOKEN` (Settings → Secrets and variables → Actions).
-3. Optional: create an environment named `npm` (Settings → Environments) and add a
-   required reviewer, so every publish needs a human approval.
-
-**Cutting a release**
-
-1. Bump `version` in `package.json` and commit it.
-2. Tag and publish a GitHub Release, e.g. `v0.1.0` — the tag must match the version
-   in `package.json` or the workflow stops.
-3. `publish.yml` runs build + tests, refuses to republish an existing version, and
-   publishes with `--provenance` so npm can attest the package came from this repo.
-
-To rehearse without publishing, run the **Publish to npm** workflow manually with
-`dry_run` left on.
 
 ## License
 
