@@ -1,0 +1,40 @@
+/* classic - the default. Single column, no emoji, real text layer: safe for ATS parsers. */
+@page { size: A4; margin: 11mm 13mm; }
+* { box-sizing: border-box; }
+body {
+  font-family: -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 9pt; line-height: 1.36; color: #1b1b1b; margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+.header { position: relative; min-height: var(--photo-h, 0); padding-right: var(--photo-gutter, 0); }
+.photo {
+  position: absolute; top: 0; right: 0;
+  width: var(--photo-w, 30mm); height: var(--photo-h, 40mm);
+  object-fit: cover; border-radius: 2px;
+}
+.photo-empty {
+  position: absolute; top: 0; right: 0;
+  width: var(--photo-w, 30mm); height: var(--photo-h, 40mm);
+  border: 1px dashed #c2c2c2; border-radius: 2px; background: #fafafa;
+  display: flex; align-items: center; justify-content: center;
+  color: #a8a8a8; font-size: 7pt; letter-spacing: .04em; text-align: center;
+}
+h1 { font-size: 19pt; font-weight: 700; letter-spacing: -.01em; margin: 0 0 5px; color: #0f0f0f; }
+h2 {
+  font-size: 9.5pt; font-weight: 700; text-transform: uppercase; letter-spacing: .09em;
+  color: #0f0f0f; border-bottom: 1.3px solid #2b2b2b;
+  padding-bottom: 2px; margin: 9px 0 5px; break-after: avoid;
+}
+h3 { font-size: 10pt; font-weight: 700; color: #111; margin: 6px 0 1px; break-after: avoid; }
+p { margin: 0 0 2px; }
+.contacts { margin-bottom: 2px; }
+p.contact { white-space: nowrap; font-size: 8.6pt; color: #333; margin: 0; line-height: 1.5; }
+p.meta { font-size: 8.8pt; color: #444; margin: 0 0 3px; }
+ul { margin: 2px 0 4px; padding-left: 14px; }
+ul ul { margin: 1px 0; }
+li { margin-bottom: 1.4px; break-inside: avoid; }
+strong { font-weight: 600; color: #000; }
+em { font-style: italic; }
+code { font-family: "SF Mono", Menlo, monospace; font-size: 8.8pt; color: #222; }
+hr { display: none; }
+a { color: inherit; text-decoration: none; }

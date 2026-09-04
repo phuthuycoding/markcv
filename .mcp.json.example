@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "markcv": {
+      "command": "node",
+      "args": ["/Volumes/Labs/Code/projects/markcv/dist/mcp/server.js"],
+      "cwd": "/Volumes/Labs/CV"
+    }
+  }
+}

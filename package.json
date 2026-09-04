@@ -1,0 +1,50 @@
+{
+  "name": "markcv",
+  "version": "0.1.0",
+  "description": "Build, fit and lint a CV from Markdown \u2014 CLI + MCP server for AI agents",
+  "type": "module",
+  "bin": {
+    "markcv": "./dist/cli.js",
+    "markcv-mcp": "./dist/mcp/server.js"
+  },
+  "main": "./dist/index.js",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "files": [
+    "dist",
+    "themes",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "mcp": "node dist/mcp/server.js",
+    "test": "node --test test/*.test.js",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "cv",
+    "resume",
+    "markdown",
+    "pdf",
+    "mcp",
+    "ats"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.4",
+    "commander": "^12.1.0",
+    "markdown-it": "^14.1.0",
+    "puppeteer-core": "^23.10.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/markdown-it": "^14.1.2",
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.2"
+  }
+}
