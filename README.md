@@ -85,10 +85,29 @@ how the same format stretches. Each one builds with the default theme and no pho
 </tr>
 </table>
 
+### With a portrait photo
+
+Markets differ: a CV in Berlin or Toronto normally carries no photo, while one in
+Vietnam, Japan or Germany's more traditional employers usually does. Drop a
+`photo.jpg` next to the markdown file and it lands in the top-right corner.
+
+<p align="center">
+  <a href="docs/screenshots/fullstack-engineer-photo.png">
+    <img src="docs/screenshots/fullstack-engineer-photo.png" width="440" alt="CV with a portrait photo">
+  </a>
+  <br>
+  <sub><a href="examples/with-photo/fullstack-engineer.md">examples/with-photo/fullstack-engineer.md</a> — one page, photo auto-detected</sub>
+</p>
+
+The photo lives in its own folder because detection is per-directory: any `.md`
+file next to a `photo.*` picks it up. Keep photo-less CVs in a separate folder,
+or pass `--no-photo`.
+
 Build them yourself:
 
 ```bash
 markcv build examples --pages 2
+markcv render examples/with-photo/fullstack-engineer.md --pages 1
 ```
 
 Note what the bullets in those samples have in common: a number, or a before and after.
