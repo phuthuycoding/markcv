@@ -1,11 +1,11 @@
 {
   "name": "markcv",
   "version": "0.1.0",
-  "description": "Build, fit and lint a CV from Markdown \u2014 CLI + MCP server for AI agents",
+  "description": "Build, fit and lint a CV from Markdown — CLI + MCP server for AI agents",
   "type": "module",
   "bin": {
-    "markcv": "./dist/cli.js",
-    "markcv-mcp": "./dist/mcp/server.js"
+    "markcv": "dist/cli.js",
+    "markcv-mcp": "dist/mcp/server.js"
   },
   "main": "./dist/index.js",
   "exports": {
