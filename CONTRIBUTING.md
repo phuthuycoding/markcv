@@ -47,6 +47,12 @@ Publishing runs from GitHub Actions, never from a laptop.
 3. Optional: create an environment named `npm` (Settings → Environments) with a
    required reviewer, so every publish needs human approval.
 
+The package is published under the `@tamanhquyen.it` scope. npm rejects short
+unscoped names that resemble existing ones — `markcv` collided with `mark-cv`,
+then `fitcv` collided with `fetch` — and the similarity rule is not documented or
+queryable, so an unscoped name is a guess you can only test by publishing. The
+scope removes that guessing entirely; `publishConfig.access` keeps it public.
+
 **Cutting a release**
 
 1. Bump `version` in `package.json` and commit.

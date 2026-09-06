@@ -1,7 +1,7 @@
 # fitcv
 
 [![CI](https://github.com/phuthuycoding/fitcv/actions/workflows/ci.yml/badge.svg)](https://github.com/phuthuycoding/fitcv/actions/workflows/ci.yml)
-[![npm](https://img.shields.io/npm/v/fitcv.svg)](https://www.npmjs.com/package/fitcv)
+[![npm](https://img.shields.io/npm/v/@tamanhquyen.it/fitcv.svg)](https://www.npmjs.com/package/@tamanhquyen.it/fitcv)
 
 <p align="center">
   <img src="docs/screenshots/engineering-lead.png" width="640" alt="A CV rendered by fitcv">
@@ -25,7 +25,13 @@ npm install          # builds dist/ via the prepare script
 npm link             # puts `fitcv` and `fitcv-mcp` on your PATH
 ```
 
-Once it is on npm this becomes `npm install -g fitcv`.
+Or from npm:
+
+```bash
+npm install -g @tamanhquyen.it/fitcv
+```
+
+The package is scoped, but the commands are not — you still type `fitcv` and `fitcv-mcp`.
 
 Requires a Chromium-based browser already on your machine (Chrome, Chromium, Edge, Brave). fitcv deliberately does **not** download its own Chromium — it uses `puppeteer-core`, so the install stays small. If your browser lives somewhere unusual, point at it with `FITCV_CHROME=/path/to/chrome`.
 
