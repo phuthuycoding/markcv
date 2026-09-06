@@ -246,6 +246,11 @@ markcv exists for the part that comes after the rendering works:
 | **Job-description match** | — | missing requirements, SKILLS-only claims, unrelated bullets |
 | **Usable by an AI agent** | — | MCP server, structured JSON |
 
+## Author
+
+Built by [Ta Manh Quyen](https://quyentm.dev) — a staff engineer who got tired of guessing
+why a CV spilled onto a third page. More writing at [quyentm.dev](https://quyentm.dev).
+
 ## License
 
 MIT

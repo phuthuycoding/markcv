@@ -114,12 +114,33 @@ pre.block{background:var(--surface);border:1px solid var(--line);border-radius:v
 .two{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));align-items:start}
 .lbl{font-size:13px;color:var(--ink-faint);margin:0 0 9px;font-weight:560}
 
+.i{width:15px;height:15px;flex:0 0 auto}
+.btn .i{margin-right:-1px}
+.ico{display:inline-flex;align-items:center;gap:6px}
+.btn-star{background:var(--surface);border-color:var(--line);color:var(--ink)}
+.btn-star:hover{border-color:var(--accent);color:var(--accent-ink);text-decoration:none}
+.btn-star .i{color:var(--warn)}
+.count{margin-left:7px;padding-left:9px;border-left:1px solid var(--line);color:var(--ink-soft);font-variant-numeric:tabular-nums;font-size:14px}
+
+/* dong tac gia duoi footer */
+.author{display:flex;align-items:center;gap:11px;padding:22px 0 0;margin-top:22px;border-top:1px solid var(--line-soft)}
+.avatar{width:38px;height:38px;border-radius:99px;background:var(--accent-soft);color:var(--accent-ink);display:grid;place-items:center;font-weight:660;font-size:15px;flex:0 0 auto}
+.author-txt{font-size:14px;color:var(--ink-soft);line-height:1.5}
+.author-txt b{color:var(--ink);font-weight:600}
+
 footer{border-top:1px solid var(--line);padding:34px 0;color:var(--ink-faint);font-size:14px}
 .foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .foot a{color:var(--ink-soft)}
 </style>
 </head>
 <body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-github" viewBox="0 0 16 16"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"/></symbol>
+  <symbol id="i-npm" viewBox="0 0 24 24"><path fill="currentColor" d="M0 7.334v8h6.666v1.332H12v-1.332h12v-8H0zm6.666 6.664H5.334v-4H4v4H1.334V8.667h5.332v5.331zm4 0v1.336H8.001V8.667h5.334v5.332h-2.669zm12.001 0h-1.33v-4h-1.336v4h-1.33v-4h-1.336v4h-2.671V8.667h8.003v5.331zM10.665 10H12v2.667h-1.335V10z"/></symbol>
+  <symbol id="i-star" viewBox="0 0 16 16"><path fill="currentColor" d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25"/></symbol>
+  <symbol id="i-book" viewBox="0 0 16 16"><path fill="currentColor" d="M0 1.75A.75.75 0 0 1 .75 1h4.253c1.227 0 2.317.59 3 1.501A3.74 3.74 0 0 1 11.006 1h4.245a.75.75 0 0 1 .75.75v10.5a.75.75 0 0 1-.75.75h-4.507a2.25 2.25 0 0 0-1.591.659l-.622.621a.75.75 0 0 1-1.06 0l-.622-.621A2.25 2.25 0 0 0 5.258 13H.75a.75.75 0 0 1-.75-.75zm8.75 2.5V12.5h4V2.5h-3.5a2.25 2.25 0 0 0-2.25 2.25zm-1.5 0A2.25 2.25 0 0 0 5.003 2.5H1.5v10h3.757c.79 0 1.55.277 2.153.773z"/></symbol>
+</svg>
 
 <header>
   <div class="wrap nav">
@@ -129,7 +150,7 @@ footer{border-top:1px solid var(--line);padding:34px 0;color:var(--ink-faint);fo
       <a href="#examples" class="hide-sm">Examples</a>
       <a href="#mcp">MCP</a>
       <a href="#compare" class="hide-sm">Compare</a>
-      <a href="https://github.com/phuthuycoding/markcv">GitHub</a>
+      <a href="https://github.com/phuthuycoding/markcv" class="ico"><svg class="i"><use href="#i-github"/></svg> GitHub</a>
     </nav>
   </div>
 </header>
@@ -141,8 +162,9 @@ footer{border-top:1px solid var(--line);padding:34px 0;color:var(--ink-faint);fo
   <h1>Your CV does not fit two pages.<br>markcv tells you why.</h1>
   <p class="lede">Most Markdown resume tools stop at rendering. markcv starts there — it explains <em>which block</em> pushed your CV onto a third page, and audits the writing for the two failures that cost you interviews: <em>overselling</em> and <em>underselling</em>.</p>
   <div class="cta">
-    <a class="btn btn-primary" href="https://www.npmjs.com/package/@phuthuycoding/markcv">Get it on npm</a>
-    <a class="btn btn-ghost" href="https://github.com/phuthuycoding/markcv">View source</a>
+    <a class="btn btn-primary" href="https://www.npmjs.com/package/@phuthuycoding/markcv"><svg class="i"><use href="#i-npm"/></svg> Get it on npm</a>
+    <a class="btn btn-ghost" href="https://github.com/phuthuycoding/markcv"><svg class="i"><use href="#i-github"/></svg> View source</a>
+    <a class="btn btn-star" href="https://github.com/phuthuycoding/markcv/stargazers"><svg class="i"><use href="#i-star"/></svg> Star<span id="stars" class="count" hidden></span></a>
   </div>
   <div class="install"><span class="c-dim">$</span> <code>npm install -g @phuthuycoding/markcv</code></div>
 
@@ -274,8 +296,9 @@ footer{border-top:1px solid var(--line);padding:34px 0;color:var(--ink-faint);fo
     <h2 style="margin-bottom:14px">Start with one command</h2>
     <p class="lede" style="margin-bottom:26px">Write the CV in Markdown you already know. Let the tool argue with you about the rest.</p>
     <div class="cta">
-      <a class="btn btn-primary" href="https://github.com/phuthuycoding/markcv#usage">Read the docs</a>
+      <a class="btn btn-primary" href="https://github.com/phuthuycoding/markcv#usage"><svg class="i"><use href="#i-book"/></svg> Read the docs</a>
       <a class="btn btn-ghost" href="https://github.com/phuthuycoding/markcv/tree/master/examples">Browse examples</a>
+      <a class="btn btn-star" href="https://github.com/phuthuycoding/markcv/stargazers"><svg class="i"><use href="#i-star"/></svg> Star on GitHub<span id="stars2" class="count" hidden></span></a>
     </div>
   </div>
 </section>
@@ -283,15 +306,39 @@ footer{border-top:1px solid var(--line);padding:34px 0;color:var(--ink-faint);fo
 </main>
 
 <footer>
-  <div class="wrap foot">
-    <span>MIT · built by <a href="https://github.com/phuthuycoding">phuthuycoding</a></span>
-    <span>
-      <a href="https://www.npmjs.com/package/@phuthuycoding/markcv">npm</a> ·
-      <a href="https://github.com/phuthuycoding/markcv">GitHub</a> ·
-      <a href="https://github.com/phuthuycoding/markcv/blob/master/CHANGELOG.md">Changelog</a>
-    </span>
+  <div class="wrap">
+    <div class="foot">
+      <span>MIT licensed</span>
+      <span class="ico-row">
+        <a class="ico" href="https://www.npmjs.com/package/@phuthuycoding/markcv"><svg class="i"><use href="#i-npm"/></svg> npm</a> &nbsp;
+        <a class="ico" href="https://github.com/phuthuycoding/markcv"><svg class="i"><use href="#i-github"/></svg> GitHub</a> &nbsp;
+        <a href="https://github.com/phuthuycoding/markcv/blob/master/CHANGELOG.md">Changelog</a>
+      </span>
+    </div>
+    <div class="author">
+      <span class="avatar">TQ</span>
+      <span class="author-txt">
+        Built by <b>Ta Manh Quyen</b>, a staff engineer who got tired of guessing why a CV
+        spilled onto a third page. More writing at <a href="https://quyentm.dev">quyentm.dev</a>.
+      </span>
+    </div>
   </div>
 </footer>
 
+<script>
+// So star that tu GitHub. Neu API loi hoac bi rate-limit thi khong hien gi ca,
+// vi mot nut "Star  0" con te hon nut khong co so.
+fetch("https://api.github.com/repos/phuthuycoding/markcv")
+  .then(r => r.ok ? r.json() : Promise.reject())
+  .then(d => {
+    const n = d.stargazers_count;
+    if (typeof n !== "number") return;
+    for (const id of ["stars", "stars2"]) {
+      const el = document.getElementById(id);
+      if (el) { el.textContent = n >= 1000 ? (n / 1000).toFixed(1) + "k" : n; el.hidden = false; }
+    }
+  })
+  .catch(() => {});
+</script>
 </body>
 </html>
