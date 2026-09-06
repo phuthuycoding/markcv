@@ -3,10 +3,17 @@
 ## Development
 
 ```bash
+git clone https://github.com/phuthuycoding/markcv.git
+cd markcv
 npm install          # `prepare` builds dist/ automatically
 npm run build        # or rebuild by hand
 npm test             # 20 tests, no browser needed
+npm link             # optional: run your working copy as `markcv`
 ```
+
+`npm link` replaces any globally installed copy with this working tree, which is
+what you want while developing. `npm unlink -g @phuthuycoding/markcv` puts the
+published one back.
 
 Only `render` and `fit` need a browser, and only at runtime — the test suite does not
 launch Chrome, so it runs anywhere.

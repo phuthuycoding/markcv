@@ -19,19 +19,16 @@ Two things set it apart from ordinary markdown→PDF tools:
 ## Install
 
 ```bash
-git clone https://github.com/phuthuycoding/markcv.git
-cd markcv
-npm install          # builds dist/ via the prepare script
-npm link             # puts `markcv` and `markcv-mcp` on your PATH
-```
-
-Or from npm:
-
-```bash
 npm install -g @phuthuycoding/markcv
 ```
 
-The package is scoped, but the commands are not — you still type `markcv` and `markcv-mcp`.
+The package is scoped; the commands are not. You type `markcv` and `markcv-mcp`.
+
+Or run it without installing:
+
+```bash
+npx @phuthuycoding/markcv fit cv.md --pages 2
+```
 
 Requires a Chromium-based browser already on your machine (Chrome, Chromium, Edge, Brave). markcv deliberately does **not** download its own Chromium — it uses `puppeteer-core`, so the install stays small. If your browser lives somewhere unusual, point at it with `MARKCV_CHROME=/path/to/chrome`.
 
@@ -129,10 +126,10 @@ Note what the bullets in those samples have in common: a number, or a before and
 
 Lets an AI agent (Claude Code, Claude Desktop, Cursor…) build and audit CVs on its own.
 
-Install it first (see [Install](#install) above), then point a client at `markcv-mcp`.
+Install the package (above), then point a client at `markcv-mcp`.
 
-Check the server starts (it waits for JSON-RPC on stdin and prints nothing — that is
-correct; Ctrl+C to quit):
+Check the server starts — it waits for JSON-RPC on stdin and prints nothing, which
+is correct; Ctrl+C to quit:
 
 ```bash
 markcv-mcp
@@ -140,8 +137,7 @@ markcv-mcp
 
 ### Register it with a client
 
-After `npm link` the command is simply `markcv-mcp`. Without it, use an **absolute path**
-to `dist/mcp/server.js`. The repo ships `.mcp.json.example` to copy from.
+The repo ships `.mcp.json.example` to copy from.
 
 **Claude Code** — add to `.mcp.json` in your project (shared with the team), or `~/.claude.json` (just you):
 
@@ -171,19 +167,9 @@ Restart the client afterwards so it picks the server up.
 
 ### File paths in tool arguments
 
-Every tool takes a file path. Relative paths resolve against the **server process's working directory**, so either pass absolute paths or give the server a `cwd`:
-
-```json
-{
-  "mcpServers": {
-    "markcv": {
-      "command": "node",
-      "args": ["/path/to/markcv/dist/mcp/server.js"],
-      "cwd": "/path/to/your/cv/folder"
-    }
-  }
-}
-```
+Every tool takes a file path, and relative paths resolve against the **server
+process's working directory** — hence the `cwd` above. Without it, pass absolute
+paths instead.
 
 ### Tools
 
