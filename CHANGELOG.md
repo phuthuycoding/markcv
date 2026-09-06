@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-09-06
+
+### Fixed
+
+- `markcv --version` reported the version that was hardcoded in the source rather
+  than the one actually installed: 0.1.1 shipped while `--version` still said
+  0.1.0. Both the CLI and the MCP server now read it from `package.json`, and a
+  test fails if the two ever disagree.
+
 ## [0.1.1] - 2026-09-06
 
 ### Added
@@ -51,6 +60,7 @@ First release.
 - Two ATS-safe themes: `classic` and `compact`.
 - Example CVs in `examples/`, with and without a portrait photo.
 
-[Unreleased]: https://github.com/phuthuycoding/markcv/compare/v0.1.1...HEAD
+[Unreleased]: https://github.com/phuthuycoding/markcv/compare/v0.1.2...HEAD
+[0.1.2]: https://github.com/phuthuycoding/markcv/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/phuthuycoding/markcv/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/phuthuycoding/markcv/releases/tag/v0.1.0

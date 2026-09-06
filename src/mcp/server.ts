@@ -10,8 +10,9 @@ import { analyseFit } from "../core/fit.js";
 import { lint } from "../core/lint.js";
 import { tailor } from "../core/tailor.js";
 import { newVariant, listVariants, diffVariants } from "../core/variants.js";
+import { VERSION } from "../version.js";
 
-const server = new McpServer({ name: "markcv", version: "0.1.0" });
+const server = new McpServer({ name: "markcv", version: VERSION });
 
 /** Every tool returns JSON so an agent can loop on the result, rather than prose for a human. */
 const json = (data: unknown) => ({

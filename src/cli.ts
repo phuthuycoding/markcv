@@ -8,10 +8,11 @@ import { lint } from "./core/lint.js";
 import { tailor } from "./core/tailor.js";
 import { newVariant, listVariants, diffVariants } from "./core/variants.js";
 import { c, ok, bad, warn, info } from "./ui.js";
+import { VERSION } from "./version.js";
 import type { FitReport, LintFinding } from "./types.js";
 
 const program = new Command();
-program.name("markcv").description("Build, fit and audit a CV written in Markdown").version("0.1.0");
+program.name("markcv").description("Build, fit and audit a CV written in Markdown").version(VERSION);
 
 const pdfNameFor = (md: string) => md.replace(/\.md$/, ".pdf");
 
