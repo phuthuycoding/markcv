@@ -59,3 +59,21 @@ test("bullets keep bold formatting", () => {
   const html = renderBody(cv, "");
   assert.match(html, /<li>Bullet one with <strong>bold<\/strong>.<\/li>/);
 });
+
+test("HTML comments never reach the rendered page", () => {
+  const withComment = `<!-- markcv:no-build
+     master file, not for submission -->
+
+# A B
+
+**Email:** a@b.c
+
+## OBJECTIVE
+
+Text.
+`;
+  const html = renderBody(withComment, "");
+  assert.ok(!html.includes("no-build"), "the marker leaked into the output");
+  assert.ok(!html.includes("&lt;!--"), "the comment was escaped instead of dropped");
+  assert.match(html, /<h1>A B<\/h1>/, "the heading after the comment still renders");
+});

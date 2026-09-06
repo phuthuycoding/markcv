@@ -1,6 +1,6 @@
 {
   "name": "@phuthuycoding/markcv",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Markdown resume builder that lints your CV and explains why it will not fit two pages. ATS-safe PDF, job-description tailoring, CLI + MCP server for AI agents.",
   "type": "module",
   "bin": {

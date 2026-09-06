@@ -3,12 +3,22 @@ import type { CvDoc } from "../types.js";
 
 const md = new MarkdownIt({ html: false, linkify: false, typographer: false });
 
+/**
+ * HTML comments carry metadata for tools (markcv:no-build and friends), never
+ * content. With `html: false` markdown-it escapes them into visible text rather
+ * than dropping them, so strip them before rendering.
+ */
+function stripComments(raw: string): string {
+  return raw.replace(/<!--[\s\S]*?-->/g, "");
+}
+
 /** A header contact line: `**Label:** value` (no `|`, unlike a job-title line). */
 const CONTACT_RE = /^<p><strong>[^<]+:<\/strong>[^|]*<\/p>$/;
 /** A job-title line: `**Job Title** | 2020 - 2021`. */
 const META_RE = /^<p><strong>.*\|.*<\/p>$/;
 
-export function parseCv(raw: string): CvDoc {
+export function parseCv(input: string): CvDoc {
+  const raw = stripComments(input);
   const lines = raw.split("\n");
   const sections: CvDoc["sections"] = [];
   lines.forEach((line, i) => {
@@ -27,7 +37,7 @@ export function parseCv(raw: string): CvDoc {
  * be laid out as one block.
  */
 export function renderBody(raw: string, photoHtml: string): string {
-  const html = md.render(raw);
+  const html = md.render(stripComments(raw));
   const blocks = html.split("\n").filter((l) => l.trim() !== "");
 
   const out: string[] = [];
