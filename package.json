@@ -1,6 +1,6 @@
 {
   "name": "@phuthuycoding/markcv",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Fit, lint and build a CV from Markdown - CLI + MCP server for AI agents",
   "type": "module",
   "bin": {

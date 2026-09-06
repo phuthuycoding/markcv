@@ -183,4 +183,14 @@ program
     }
   });
 
+program
+  .command("mcp")
+  .description("Start the MCP server on stdio (for AI agent clients)")
+  .action(async () => {
+    // Importing the server starts it: it connects to stdio and stays there.
+    // Having it as a subcommand is what lets `npx @scope/pkg mcp` work without
+    // the --package dance a second binary would need.
+    await import("./mcp/server.js");
+  });
+
 program.parseAsync(process.argv);

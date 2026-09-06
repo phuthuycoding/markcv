@@ -1,6 +1,15 @@
 {
   "mcpServers": {
     "markcv": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@phuthuycoding/markcv",
+        "mcp"
+      ],
+      "cwd": "/path/to/your/cv/folder"
+    },
+    "markcv-global": {
       "command": "markcv-mcp",
       "cwd": "/path/to/your/cv/folder"
     }

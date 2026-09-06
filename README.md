@@ -126,42 +126,41 @@ Note what the bullets in those samples have in common: a number, or a before and
 
 Lets an AI agent (Claude Code, Claude Desktop, Cursor…) build and audit CVs on its own.
 
-Install the package (above), then point a client at `markcv-mcp`.
-
-Check the server starts — it waits for JSON-RPC on stdin and prints nothing, which
-is correct; Ctrl+C to quit:
-
-```bash
-markcv-mcp
-```
+Nothing to install: `npx` fetches the package on first use and caches it.
 
 ### Register it with a client
 
-The repo ships `.mcp.json.example` to copy from.
-
-**Claude Code** — add to `.mcp.json` in your project (shared with the team), or `~/.claude.json` (just you):
+**Claude Code** — add to `.mcp.json` in your project (shared with the team), or
+`~/.claude.json` (just you):
 
 ```json
 {
   "mcpServers": {
     "markcv": {
-      "command": "markcv-mcp",
+      "command": "npx",
+      "args": ["-y", "@phuthuycoding/markcv", "mcp"],
       "cwd": "/path/to/your/cv/folder"
     }
   }
 }
 ```
 
-Or add it from the command line:
+Or from the command line:
 
 ```bash
-claude mcp add markcv -- markcv-mcp
+claude mcp add markcv -- npx -y @phuthuycoding/markcv mcp
 claude mcp list          # confirm it connected
 ```
 
 Restart the client afterwards so it picks the server up.
 
-**Claude Desktop** — `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) or `%APPDATA%\Claude\claude_desktop_config.json` (Windows), same `mcpServers` shape, then restart the app.
+If you installed the package globally, `"command": "markcv-mcp"` with no `args`
+works too and starts marginally faster. The repo ships `.mcp.json.example` with
+both shapes.
+
+**Claude Desktop** — `~/Library/Application Support/Claude/claude_desktop_config.json`
+(macOS) or `%APPDATA%\Claude\claude_desktop_config.json` (Windows), same shape,
+then restart the app.
 
 **Cursor** — `.cursor/mcp.json` in the project, same shape.
 
@@ -187,7 +186,8 @@ Every tool returns **structured JSON**, not prose — so an agent can loop on it
 
 ### Requirements
 
-Node >= 18 and a Chromium-based browser. If it is in a non-standard location:
+Node >= 18 and a Chromium-based browser (only `render` and `check_fit` need it).
+If it is in a non-standard location:
 
 ```json
 { "mcpServers": { "markcv": { "command": "node", "args": ["..."],
