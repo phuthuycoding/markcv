@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>markcv — Markdown resume builder that lints your CV</title>
+<meta name="description" content="Markdown resume builder that lints your CV and explains why it will not fit two pages. ATS-safe PDF, job-description tailoring, CLI + MCP server for AI agents.">
+<link rel="canonical" href="https://phuthuycoding.github.io/markcv/">
+<meta property="og:title" content="markcv — Markdown resume builder that lints your CV">
+<meta property="og:description" content="Explains why your CV will not fit two pages, and audits the writing itself. CLI + MCP server.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://phuthuycoding.github.io/markcv/">
+<meta property="og:image" content="https://phuthuycoding.github.io/markcv/screenshots/engineering-lead.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📄</text></svg>">
+<style>
+:root{
+  --bg:#faf9f5; --surface:#fffefb; --sunken:#f2efe6;
+  --ink:#1f1e1c; --ink-soft:#5c5850; --ink-faint:#8a857a;
+  --line:#e6e1d6; --line-soft:#efebe1;
+  --accent:#c96442; --accent-soft:#f5e3dc; --accent-ink:#a04e31;
+  --ok:#3f7d58; --warn:#b0761f;
+  --radius:14px; --maxw:1080px;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#1a1917; --surface:#232220; --sunken:#141312;
+    --ink:#f2efe8; --ink-soft:#b3ada1; --ink-faint:#847e73;
+    --line:#332f2a; --line-soft:#2a2724;
+    --accent:#e08363; --accent-soft:#3a2a24; --accent-ink:#eb9d81;
+    --ok:#6aab84; --warn:#d8a34e;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:ui-sans-serif,-apple-system,"Segoe UI",Inter,system-ui,sans-serif;
+  font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px}
+a{color:var(--accent-ink); text-decoration:none}
+a:hover{text-decoration:underline}
+code,pre{font-family:ui-monospace,"SF Mono",Menlo,monospace}
+
+/* header */
+header{border-bottom:1px solid var(--line); position:sticky; top:0; background:color-mix(in srgb,var(--bg) 88%,transparent); backdrop-filter:blur(8px); z-index:10}
+.nav{display:flex; align-items:center; justify-content:space-between; height:60px; gap:16px}
+.brand{display:flex; align-items:center; gap:9px; font-weight:650; letter-spacing:-.01em; color:var(--ink)}
+.brand:hover{text-decoration:none}
+.mark{width:26px;height:26px;border-radius:7px;background:var(--accent);display:grid;place-items:center;color:#fff;font-size:13px;font-weight:700}
+.nav nav{display:flex; gap:20px; font-size:14.5px; color:var(--ink-soft)}
+.nav nav a{color:var(--ink-soft)}
+.nav nav a:hover{color:var(--ink)}
+@media(max-width:720px){.nav nav a.hide-sm{display:none}}
+
+/* hero */
+.hero{padding:76px 0 8px; text-align:center}
+.pill{display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--ink-soft);background:var(--surface);border:1px solid var(--line);padding:5px 13px;border-radius:99px;margin-bottom:24px}
+.pill b{color:var(--accent-ink);font-weight:600}
+h1{font-size:clamp(34px,5.4vw,54px); line-height:1.1; letter-spacing:-.03em; margin:0 0 18px; font-weight:680}
+.lede{font-size:clamp(17px,2.1vw,20px); color:var(--ink-soft); max-width:660px; margin:0 auto 30px}
+.lede em{color:var(--ink); font-style:normal; font-weight:600}
+.cta{display:flex; gap:11px; justify-content:center; flex-wrap:wrap; margin-bottom:14px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:10px;font-size:15px;font-weight:560;border:1px solid transparent;transition:.15s}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent-ink);text-decoration:none}
+.btn-ghost{background:var(--surface);border-color:var(--line);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--ink-faint);text-decoration:none}
+.install{display:inline-flex;align-items:center;gap:10px;background:var(--sunken);border:1px solid var(--line-soft);border-radius:9px;padding:9px 15px;font-size:14px;color:var(--ink-soft);margin-top:6px}
+.install code{color:var(--ink)}
+
+/* terminal */
+.term{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.04),0 10px 30px -18px rgba(0,0,0,.25);text-align:left;margin:46px auto 0;max-width:800px}
+.term-bar{display:flex;align-items:center;gap:7px;padding:11px 15px;border-bottom:1px solid var(--line-soft);background:var(--sunken)}
+.dot{width:10px;height:10px;border-radius:99px;background:var(--line)}
+.term-title{margin-left:8px;font-size:12.5px;color:var(--ink-faint);font-family:ui-monospace,monospace}
+.term pre{margin:0;padding:19px 20px;font-size:13.2px;line-height:1.72;overflow-x:auto;white-space:pre}
+.c-dim{color:var(--ink-faint)} .c-ok{color:var(--ok)} .c-bad{color:var(--accent)} .c-warn{color:var(--warn)} .c-b{color:var(--ink);font-weight:600}
+
+/* sections */
+section{padding:74px 0}
+.sec-head{max-width:660px;margin:0 auto 42px;text-align:center}
+h2{font-size:clamp(25px,3.4vw,33px);letter-spacing:-.022em;margin:0 0 12px;font-weight:660}
+.sec-head p{color:var(--ink-soft);margin:0;font-size:17px}
+.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px}
+.card h3{margin:0 0 9px;font-size:17px;font-weight:640;display:flex;align-items:center;gap:9px}
+.card h3 code{background:var(--accent-soft);color:var(--accent-ink);padding:2px 8px;border-radius:6px;font-size:13.5px}
+.card p{margin:0;color:var(--ink-soft);font-size:15px}
+.card p + p{margin-top:10px}
+
+.alt{background:var(--sunken);border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)}
+
+/* shots */
+.shots{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.shot{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:11px;transition:.18s}
+.shot:hover{transform:translateY(-3px);box-shadow:0 12px 28px -20px rgba(0,0,0,.4)}
+.shot img{width:100%;display:block;border-radius:7px;border:1px solid var(--line-soft)}
+.shot .cap{display:flex;justify-content:space-between;align-items:center;margin-top:11px;font-size:13px;color:var(--ink-soft)}
+.shot .cap b{color:var(--ink);font-weight:560}
+
+/* table */
+.tablewrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius)}
+table{border-collapse:collapse;width:100%;font-size:15px;min-width:520px}
+th,td{text-align:left;padding:13px 18px;border-bottom:1px solid var(--line-soft)}
+th{font-weight:600;font-size:13.5px;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.05em}
+tr:last-child td{border-bottom:none}
+td.no{color:var(--ink-faint)}
+td.yes{color:var(--ok);font-weight:560}
+
+/* code block */
+pre.block{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:19px 21px;overflow-x:auto;font-size:13.5px;line-height:1.7;margin:0}
+.two{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));align-items:start}
+.lbl{font-size:13px;color:var(--ink-faint);margin:0 0 9px;font-weight:560}
+
+footer{border-top:1px solid var(--line);padding:34px 0;color:var(--ink-faint);font-size:14px}
+.foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.foot a{color:var(--ink-soft)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top"><span class="mark">m</span> markcv</a>
+    <nav>
+      <a href="#why">Why</a>
+      <a href="#examples" class="hide-sm">Examples</a>
+      <a href="#mcp">MCP</a>
+      <a href="#compare" class="hide-sm">Compare</a>
+      <a href="https://github.com/phuthuycoding/markcv">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<div class="wrap hero">
+  <span class="pill">Markdown in, <b>ATS-safe PDF</b> out</span>
+  <h1>Your CV does not fit two pages.<br>markcv tells you why.</h1>
+  <p class="lede">Most Markdown resume tools stop at rendering. markcv starts there — it explains <em>which block</em> pushed your CV onto a third page, and audits the writing for the two failures that cost you interviews: <em>overselling</em> and <em>underselling</em>.</p>
+  <div class="cta">
+    <a class="btn btn-primary" href="https://www.npmjs.com/package/@phuthuycoding/markcv">Get it on npm</a>
+    <a class="btn btn-ghost" href="https://github.com/phuthuycoding/markcv">View source</a>
+  </div>
+  <div class="install"><span class="c-dim">$</span> <code>npm install -g @phuthuycoding/markcv</code></div>
+
+  <div class="term">
+    <div class="term-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="term-title">markcv fit cv.md --pages 2</span></div>
+<pre><span class="c-bad">✗</span> 3 pages (target 2)
+<span class="c-dim">·</span> content 1986px / 2080px available
+<span class="c-dim">·</span> 31px wasted by page breaks
+
+<span class="c-b">Blocks pushed to a new page:</span>
+  <span class="c-warn">PROJECT HIGHLIGHTS</span> <span class="c-dim">(H2, y=1009)</span> → wastes <span class="c-bad">31px</span> at the end of page 1
+
+<span class="c-b">Suggestions:</span>
+  Content <span class="c-ok">HAS ROOM</span> (94px to spare) — length is not the problem, the page break is.
+  "PROJECT HIGHLIGHTS" at y=1009 has only 31px left before the end of page 1,
+  so the whole block moved down.
+  Fix: reorder sections, cut ~3 lines above it, or use --theme compact.</pre>
+  </div>
+</div>
+
+<section id="why">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Three things it does past rendering</h2>
+      <p>Turning Markdown into a PDF is solved. These are the parts that still waste an afternoon.</p>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <h3><code>fit</code> Page-break diagnosis</h3>
+        <p>“Too long” and “broken badly” are different illnesses with opposite cures. Trimming words is useless when the real culprit is a heading sitting 31px above a page boundary.</p>
+        <p>markcv measures the rendered document and names the block, the pixels it wasted, and which of the two problems you actually have.</p>
+      </div>
+      <div class="card">
+        <h3><code>lint</code> Content audit</h3>
+        <p>Catches <b>overselling</b> — <code>spearheaded</code>, <code>comprehensive</code>, <code>excellence</code> — words a reader skips and an interviewer distrusts.</p>
+        <p>And <b>underselling</b>, which nobody checks for: <code>advised on</code> next to work of real scale. Claiming less than you did is a mistake too, and it costs you something while gaining nothing.</p>
+      </div>
+      <div class="card">
+        <h3><code>tailor</code> Job-description match</h3>
+        <p>Shows what the posting asks for that your CV never evidences, which keywords live only under SKILLS — the ones that collapse in a deep interview — and which bullets are unrelated.</p>
+        <p>Cut those unrelated lines first, before cutting anything that matters.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="examples">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Written in Markdown, printed like a document</h2>
+      <p>Single column, real text layer, no emoji in headings — safe for the parsers that read your CV before a human does.</p>
+    </div>
+    <div class="shots">
+      <a class="shot" href="screenshots/backend-engineer.png">
+        <img src="screenshots/backend-engineer.png" alt="Backend engineer resume built from Markdown, one page">
+        <span class="cap"><b>Backend engineer</b> <span>1 page</span></span>
+      </a>
+      <a class="shot" href="screenshots/engineering-lead.png">
+        <img src="screenshots/engineering-lead.png" alt="Engineering lead resume, two pages, ATS-safe">
+        <span class="cap"><b>Engineering lead</b> <span>2 pages</span></span>
+      </a>
+      <a class="shot" href="screenshots/fullstack-engineer-photo.png">
+        <img src="screenshots/fullstack-engineer-photo.png" alt="Markdown resume with a portrait photo in the header">
+        <span class="cap"><b>With photo</b> <span>1 page</span></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="mcp">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>An AI agent can drive it</h2>
+      <p>Seven MCP tools returning structured JSON — so the agent iterates instead of guessing: edit, measure, read the culprit, edit again.</p>
+    </div>
+    <div class="two">
+      <div>
+        <p class="lbl">.mcp.json</p>
+<pre class="block">{
+  "mcpServers": {
+    "markcv": {
+      "command": "npx",
+      "args": ["-y", "@phuthuycoding/markcv", "mcp"],
+      "cwd": "/path/to/your/cv/folder"
+    }
+  }
+}</pre>
+      </div>
+      <div>
+        <p class="lbl">check_fit returns</p>
+<pre class="block">{
+  "pages": 3,
+  "contentWouldFit": true,
+  "slackPx": 94,
+  "wastedByBreaksPx": 31,
+  "culprits": [{
+    "title": "PROJECT HIGHLIGHTS",
+    "wastedPx": 31,
+    "page": 1
+  }]
+}</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="compare">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Do you need this one?</h2>
+      <p>If you only want Markdown turned into a good-looking PDF, the existing tools do that well. Use one of them.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <tr><th></th><th>Typical Markdown→PDF tool</th><th>markcv</th></tr>
+        <tr><td>Render to PDF</td><td class="yes">yes</td><td class="yes">yes</td></tr>
+        <tr><td>Themes</td><td class="yes">yes</td><td class="yes">two, ATS-safe</td></tr>
+        <tr><td>Why it does not fit N pages</td><td class="no">—</td><td class="yes">names the block and the wasted pixels</td></tr>
+        <tr><td>Content audit</td><td class="no">—</td><td class="yes">overselling, underselling, tense, unbacked claims</td></tr>
+        <tr><td>Job-description match</td><td class="no">—</td><td class="yes">missing, SKILLS-only, unrelated</td></tr>
+        <tr><td>Usable by an AI agent</td><td class="no">—</td><td class="yes">MCP server, structured JSON</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap" style="text-align:center">
+    <h2 style="margin-bottom:14px">Start with one command</h2>
+    <p class="lede" style="margin-bottom:26px">Write the CV in Markdown you already know. Let the tool argue with you about the rest.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="https://github.com/phuthuycoding/markcv#usage">Read the docs</a>
+      <a class="btn btn-ghost" href="https://github.com/phuthuycoding/markcv/tree/master/examples">Browse examples</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>MIT · built by <a href="https://github.com/phuthuycoding">phuthuycoding</a></span>
+    <span>
+      <a href="https://www.npmjs.com/package/@phuthuycoding/markcv">npm</a> ·
+      <a href="https://github.com/phuthuycoding/markcv">GitHub</a> ·
+      <a href="https://github.com/phuthuycoding/markcv/blob/master/CHANGELOG.md">Changelog</a>
+    </span>
+  </div>
+</footer>
+
+</body>
+</html>
