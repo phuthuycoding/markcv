@@ -1,7 +1,7 @@
 {
   "mcpServers": {
-    "fitcv": {
-      "command": "fitcv-mcp",
+    "markcv": {
+      "command": "markcv-mcp",
       "cwd": "/path/to/your/cv/folder"
     }
   }

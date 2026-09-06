@@ -11,7 +11,7 @@ import { c, ok, bad, warn, info } from "./ui.js";
 import type { FitReport, LintFinding } from "./types.js";
 
 const program = new Command();
-program.name("fitcv").description("Build, fit and audit a CV written in Markdown").version("0.1.0");
+program.name("markcv").description("Build, fit and audit a CV written in Markdown").version("0.1.0");
 
 const pdfNameFor = (md: string) => md.replace(/\.md$/, ".pdf");
 
@@ -79,7 +79,7 @@ program
   .option("-t, --theme <name>", "theme", "classic")
   .option("--json", "output JSON")
   .action(async (file, o) => {
-    const tmpPdf = join(process.env.TMPDIR ?? "/tmp", `fitcv-fit-${Date.now()}.pdf`);
+    const tmpPdf = join(process.env.TMPDIR ?? "/tmp", `markcv-fit-${Date.now()}.pdf`);
     const res = await render({ input: file, pdf: tmpPdf, theme: o.theme, targetPages: o.pages });
     const report = analyseFit(res.measure, res.pageBox, res.pdfPages ?? 0, o.pages);
     if (o.json) return console.log(JSON.stringify(report, null, 2));
@@ -165,11 +165,11 @@ program
   .option("-t, --theme <name>", "theme", "classic")
   .action(async (dir = ".", o) => {
     const all = readdirSync(resolve(dir)).filter((f) => f.startsWith("cv-") && f.endsWith(".md"));
-    // A file marked <!-- fitcv:no-build --> is a content store, not something you
+    // A file marked <!-- markcv:no-build --> is a content store, not something you
     // submit — skip it in batch builds.
     const files = all.filter((f) => {
       const head = readFileSync(join(resolve(dir), f), "utf8").slice(0, 400);
-      const skip = /fitcv:no-build/i.test(head);
+      const skip = /markcv:no-build/i.test(head);
       if (skip) console.log(`${c.dim("–")} ${f.padEnd(34)} ${c.dim("skipped (content store)")}`);
       return !skip;
     });

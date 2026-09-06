@@ -11,7 +11,7 @@ import { lint } from "../core/lint.js";
 import { tailor } from "../core/tailor.js";
 import { newVariant, listVariants, diffVariants } from "../core/variants.js";
 
-const server = new McpServer({ name: "fitcv", version: "0.1.0" });
+const server = new McpServer({ name: "markcv", version: "0.1.0" });
 
 /** Every tool returns JSON so an agent can loop on the result, rather than prose for a human. */
 const json = (data: unknown) => ({
@@ -71,7 +71,7 @@ server.registerTool(
   },
   async ({ file, target_pages, theme }) => {
     if (!existsSync(resolve(file))) return fail(`File not found: ${file}`);
-    const tmpPdf = join(tmpdir(), `fitcv-mcp-${Date.now()}.pdf`);
+    const tmpPdf = join(tmpdir(), `markcv-mcp-${Date.now()}.pdf`);
     const res = await render({ input: file, pdf: tmpPdf, theme, targetPages: target_pages });
     return json(analyseFit(res.measure, res.pageBox, res.pdfPages ?? 0, target_pages));
   },

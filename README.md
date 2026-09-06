@@ -1,10 +1,10 @@
-# fitcv
+# markcv
 
-[![CI](https://github.com/phuthuycoding/fitcv/actions/workflows/ci.yml/badge.svg)](https://github.com/phuthuycoding/fitcv/actions/workflows/ci.yml)
-[![npm](https://img.shields.io/npm/v/@tamanhquyen.it/fitcv.svg)](https://www.npmjs.com/package/@tamanhquyen.it/fitcv)
+[![CI](https://github.com/phuthuycoding/markcv/actions/workflows/ci.yml/badge.svg)](https://github.com/phuthuycoding/markcv/actions/workflows/ci.yml)
+[![npm](https://img.shields.io/npm/v/@phuthuycoding/markcv.svg)](https://www.npmjs.com/package/@phuthuycoding/markcv)
 
 <p align="center">
-  <img src="docs/screenshots/engineering-lead.png" width="640" alt="A CV rendered by fitcv">
+  <img src="docs/screenshots/engineering-lead.png" width="640" alt="A CV rendered by markcv">
   <br>
   <sub><code>examples/engineering-lead.md</code> — plain Markdown in, two-page A4 PDF out</sub>
 </p>
@@ -19,33 +19,33 @@ Two things set it apart from ordinary markdown→PDF tools:
 ## Install
 
 ```bash
-git clone https://github.com/phuthuycoding/fitcv.git
-cd fitcv
+git clone https://github.com/phuthuycoding/markcv.git
+cd markcv
 npm install          # builds dist/ via the prepare script
-npm link             # puts `fitcv` and `fitcv-mcp` on your PATH
+npm link             # puts `markcv` and `markcv-mcp` on your PATH
 ```
 
 Or from npm:
 
 ```bash
-npm install -g @tamanhquyen.it/fitcv
+npm install -g @phuthuycoding/markcv
 ```
 
-The package is scoped, but the commands are not — you still type `fitcv` and `fitcv-mcp`.
+The package is scoped, but the commands are not — you still type `markcv` and `markcv-mcp`.
 
-Requires a Chromium-based browser already on your machine (Chrome, Chromium, Edge, Brave). fitcv deliberately does **not** download its own Chromium — it uses `puppeteer-core`, so the install stays small. If your browser lives somewhere unusual, point at it with `FITCV_CHROME=/path/to/chrome`.
+Requires a Chromium-based browser already on your machine (Chrome, Chromium, Edge, Brave). markcv deliberately does **not** download its own Chromium — it uses `puppeteer-core`, so the install stays small. If your browser lives somewhere unusual, point at it with `MARKCV_CHROME=/path/to/chrome`.
 
 ## Usage
 
 ```bash
-fitcv render cv.md -o Output.pdf     # build the PDF, report the page count
-fitcv fit cv.md --pages 2            # why it does not fit yet
-fitcv lint cv.md                     # audit the content
-fitcv tailor cv.md --jd jd.txt       # compare against a job description
-fitcv new techlead --from cv-master.md
-fitcv list                           # every CV in the folder
-fitcv diff cv-a.md cv-b.md           # what a tailored copy dropped
-fitcv build --pages 2                # build every cv-*.md
+markcv render cv.md -o Output.pdf     # build the PDF, report the page count
+markcv fit cv.md --pages 2            # why it does not fit yet
+markcv lint cv.md                     # audit the content
+markcv tailor cv.md --jd jd.txt       # compare against a job description
+markcv new techlead --from cv-master.md
+markcv list                           # every CV in the folder
+markcv diff cv-a.md cv-b.md           # what a tailored copy dropped
+markcv build --pages 2                # build every cv-*.md
 ```
 
 ### `fit` — page-break diagnosis
@@ -117,8 +117,8 @@ or pass `--no-photo`.
 Build them yourself:
 
 ```bash
-fitcv build examples --pages 2
-fitcv render examples/with-photo/fullstack-engineer.md --pages 1
+markcv build examples --pages 2
+markcv render examples/with-photo/fullstack-engineer.md --pages 1
 ```
 
 Note what the bullets in those samples have in common: a number, or a before and after.
@@ -129,18 +129,18 @@ Note what the bullets in those samples have in common: a number, or a before and
 
 Lets an AI agent (Claude Code, Claude Desktop, Cursor…) build and audit CVs on its own.
 
-Install it first (see [Install](#install) above), then point a client at `fitcv-mcp`.
+Install it first (see [Install](#install) above), then point a client at `markcv-mcp`.
 
 Check the server starts (it waits for JSON-RPC on stdin and prints nothing — that is
 correct; Ctrl+C to quit):
 
 ```bash
-fitcv-mcp
+markcv-mcp
 ```
 
 ### Register it with a client
 
-After `npm link` the command is simply `fitcv-mcp`. Without it, use an **absolute path**
+After `npm link` the command is simply `markcv-mcp`. Without it, use an **absolute path**
 to `dist/mcp/server.js`. The repo ships `.mcp.json.example` to copy from.
 
 **Claude Code** — add to `.mcp.json` in your project (shared with the team), or `~/.claude.json` (just you):
@@ -148,8 +148,8 @@ to `dist/mcp/server.js`. The repo ships `.mcp.json.example` to copy from.
 ```json
 {
   "mcpServers": {
-    "fitcv": {
-      "command": "fitcv-mcp",
+    "markcv": {
+      "command": "markcv-mcp",
       "cwd": "/path/to/your/cv/folder"
     }
   }
@@ -159,7 +159,7 @@ to `dist/mcp/server.js`. The repo ships `.mcp.json.example` to copy from.
 Or add it from the command line:
 
 ```bash
-claude mcp add fitcv -- fitcv-mcp
+claude mcp add markcv -- markcv-mcp
 claude mcp list          # confirm it connected
 ```
 
@@ -176,9 +176,9 @@ Every tool takes a file path. Relative paths resolve against the **server proces
 ```json
 {
   "mcpServers": {
-    "fitcv": {
+    "markcv": {
       "command": "node",
-      "args": ["/path/to/fitcv/dist/mcp/server.js"],
+      "args": ["/path/to/markcv/dist/mcp/server.js"],
       "cwd": "/path/to/your/cv/folder"
     }
   }
@@ -204,8 +204,8 @@ Every tool returns **structured JSON**, not prose — so an agent can loop on it
 Node >= 18 and a Chromium-based browser. If it is in a non-standard location:
 
 ```json
-{ "mcpServers": { "fitcv": { "command": "node", "args": ["..."],
-  "env": { "FITCV_CHROME": "/path/to/chrome" } } } }
+{ "mcpServers": { "markcv": { "command": "node", "args": ["..."],
+  "env": { "MARKCV_CHROME": "/path/to/chrome" } } } }
 ```
 
 ## CV format
@@ -236,7 +236,7 @@ Plain Markdown. The only convention lives in the header:
 
 **Portrait photo:** drop `photo.jpg` (or `photo.png`, `avatar.jpg`) next to the `.md` file and it is embedded in the top-right corner. Without one you get an empty placeholder box. Photos over 400KB trigger a warning, because they push the PDF past the upload limit many job portals enforce.
 
-**Skip a file in `fitcv build`:** put `<!-- fitcv:no-build -->` near the top. Useful for a master file that is a content store rather than something you submit.
+**Skip a file in `markcv build`:** put `<!-- markcv:no-build -->` near the top. Useful for a master file that is a content store rather than something you submit.
 
 ## Themes
 

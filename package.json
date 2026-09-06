@@ -1,11 +1,11 @@
 {
-  "name": "@tamanhquyen.it/fitcv",
+  "name": "@phuthuycoding/markcv",
   "version": "0.1.0",
   "description": "Fit, lint and build a CV from Markdown - CLI + MCP server for AI agents",
   "type": "module",
   "bin": {
-    "fitcv": "dist/cli.js",
-    "fitcv-mcp": "dist/mcp/server.js"
+    "markcv": "dist/cli.js",
+    "markcv-mcp": "dist/mcp/server.js"
   },
   "main": "./dist/index.js",
   "exports": {
@@ -53,12 +53,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/phuthuycoding/fitcv.git"
+    "url": "git+https://github.com/phuthuycoding/markcv.git"
   },
   "bugs": {
-    "url": "https://github.com/phuthuycoding/fitcv/issues"
+    "url": "https://github.com/phuthuycoding/markcv/issues"
   },
-  "homepage": "https://github.com/phuthuycoding/fitcv#readme",
+  "homepage": "https://github.com/phuthuycoding/markcv#readme",
   "author": "phuthuycoding",
   "publishConfig": {
     "access": "public"

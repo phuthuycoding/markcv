@@ -1,4 +1,4 @@
-# Contributing to fitcv
+# Contributing to markcv
 
 ## Development
 
@@ -47,11 +47,13 @@ Publishing runs from GitHub Actions, never from a laptop.
 3. Optional: create an environment named `npm` (Settings → Environments) with a
    required reviewer, so every publish needs human approval.
 
-The package is published under the `@tamanhquyen.it` scope. npm rejects short
-unscoped names that resemble existing ones — `markcv` collided with `mark-cv`,
-then `fitcv` collided with `fetch` — and the similarity rule is not documented or
-queryable, so an unscoped name is a guess you can only test by publishing. The
-scope removes that guessing entirely; `publishConfig.access` keeps it public.
+The package is published as `@phuthuycoding/markcv`. The scope is not decoration:
+npm rejected the unscoped `markcv` for resembling `mark-cv`, then rejected `fitcv`
+for resembling `fetch`. That similarity rule is neither documented nor queryable,
+so an unscoped name can only be tested by publishing. A scope is the author's own
+namespace and is never compared against anyone else's package.
+
+`publishConfig.access` is set to public, since scoped packages default to private.
 
 **Cutting a release**
 
