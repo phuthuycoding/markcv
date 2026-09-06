@@ -79,7 +79,7 @@ export async function render(opts: RenderOptions): Promise<RenderResult> {
 
   const htmlPath = opts.html
     ? resolve(opts.html)
-    : join(tmpdir(), `markcv-${Date.now()}.html`);
+    : join(tmpdir(), `fitcv-${Date.now()}.html`);
   mkdirSync(dirname(htmlPath), { recursive: true });
   writeFileSync(htmlPath, html, "utf8");
 

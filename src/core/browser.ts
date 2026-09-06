@@ -24,7 +24,7 @@ const PATHS: Record<string, string[]> = {
 };
 
 /**
- * Locate an installed Chrome. markcv deliberately does NOT ship its own Chromium
+ * Locate an installed Chrome. fitcv deliberately does NOT ship its own Chromium
  * (puppeteer-core, not puppeteer) so the install stays small.
  */
 export function findChrome(explicit?: string): string {
@@ -32,14 +32,14 @@ export function findChrome(explicit?: string): string {
     if (!existsSync(explicit)) throw new Error(`No browser found at: ${explicit}`);
     return explicit;
   }
-  const fromEnv = process.env.MARKCV_CHROME ?? process.env.CHROME_PATH;
+  const fromEnv = process.env.FITCV_CHROME ?? process.env.CHROME_PATH;
   if (fromEnv && existsSync(fromEnv)) return fromEnv;
 
   const found = (PATHS[platform()] ?? []).find(existsSync);
   if (!found) {
     throw new Error(
       "No Chrome/Chromium/Edge found on this machine.\n" +
-        "Install Chrome, or point at it with MARKCV_CHROME=/path/to/chrome",
+        "Install Chrome, or point at it with FITCV_CHROME=/path/to/chrome",
     );
   }
   return found;

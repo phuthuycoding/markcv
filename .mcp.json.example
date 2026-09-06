@@ -1,9 +1,8 @@
 {
   "mcpServers": {
-    "markcv": {
-      "command": "node",
-      "args": ["/Volumes/Labs/Code/projects/markcv/dist/mcp/server.js"],
-      "cwd": "/Volumes/Labs/CV"
+    "fitcv": {
+      "command": "fitcv-mcp",
+      "cwd": "/path/to/your/cv/folder"
     }
   }
 }
