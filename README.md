@@ -4,14 +4,14 @@
 [![npm](https://img.shields.io/npm/v/@phuthuycoding/markcv.svg)](https://www.npmjs.com/package/@phuthuycoding/markcv)
 
 <p align="center">
-  <img src="docs/screenshots/engineering-lead.png" width="640" alt="A CV rendered by markcv">
+  <img src="docs/screenshots/engineering-lead.png" width="640" alt="Two-page ATS-safe resume PDF generated from Markdown by markcv">
   <br>
   <sub><code>examples/engineering-lead.md</code> — plain Markdown in, two-page A4 PDF out</sub>
 </p>
 
-Build a CV from Markdown — a CLI **and** an MCP server for AI agents.
-
-Two things set it apart from ordinary markdown→PDF tools:
+**Markdown resume builder** that does two things other markdown-to-PDF tools do not:
+it tells you *why* your CV will not fit on two pages, and it lints the writing itself.
+Runs as a CLI and as an **MCP server**, so an AI agent can do both on its own.
 
 - **`fit`** tells you *why* your CV does not fit on 2 pages. "Content too long" and "bad page break" are different illnesses with opposite cures — trimming words while the real culprit is a heading sitting 31px from the bottom of page 1 just wastes your time.
 - **`lint`** checks *content*, not formatting. It catches overselling **and underselling** — claiming less than you did is a mistake too, and it costs you something while gaining nothing.
@@ -82,9 +82,9 @@ how the same format stretches. Each one builds with the default theme and no pho
 
 <table>
 <tr>
-<td width="33%"><a href="docs/screenshots/backend-engineer.png"><img src="docs/screenshots/backend-engineer.png" alt="Backend engineer CV"></a></td>
-<td width="33%"><a href="docs/screenshots/engineering-lead.png"><img src="docs/screenshots/engineering-lead.png" alt="Engineering lead CV"></a></td>
-<td width="33%"><a href="docs/screenshots/data-scientist.png"><img src="docs/screenshots/data-scientist.png" alt="Data scientist CV"></a></td>
+<td width="33%"><a href="docs/screenshots/backend-engineer.png"><img src="docs/screenshots/backend-engineer.png" alt="Backend engineer resume built from Markdown"></a></td>
+<td width="33%"><a href="docs/screenshots/engineering-lead.png"><img src="docs/screenshots/engineering-lead.png" alt="Engineering lead resume, two pages, ATS-safe"></a></td>
+<td width="33%"><a href="docs/screenshots/data-scientist.png"><img src="docs/screenshots/data-scientist.png" alt="Data scientist resume, one page"></a></td>
 </tr>
 <tr>
 <td align="center"><a href="examples/backend-engineer.md">backend-engineer.md</a><br><sub>1 page</sub></td>
@@ -101,7 +101,7 @@ Vietnam, Japan or Germany's more traditional employers usually does. Drop a
 
 <p align="center">
   <a href="docs/screenshots/fullstack-engineer-photo.png">
-    <img src="docs/screenshots/fullstack-engineer-photo.png" width="440" alt="CV with a portrait photo">
+    <img src="docs/screenshots/fullstack-engineer-photo.png" width="440" alt="Markdown resume with a portrait photo in the header">
   </a>
   <br>
   <sub><a href="examples/with-photo/fullstack-engineer.md">examples/with-photo/fullstack-engineer.md</a> — one page, photo auto-detected</sub>
@@ -227,6 +227,23 @@ Plain Markdown. The only convention lives in the header:
 ## Themes
 
 `classic` (default) and `compact`. Both are single-column, emoji-free, with a real text layer — safe for ATS parsers.
+
+## How this differs from other Markdown resume tools
+
+Rendering Markdown into a good-looking CV is well covered — [`@resumx/resumx`](https://www.npmjs.com/package/@resumx/resumx),
+[`markdown-resume`](https://www.npmjs.com/package/markdown-resume) and others do it well, and if that is all
+you need, use one of them.
+
+markcv exists for the part that comes after the rendering works:
+
+| | Typical Markdown→PDF tool | markcv |
+|---|---|---|
+| Render to PDF | yes | yes |
+| Themes | yes | two, ATS-safe |
+| **Why it does not fit N pages** | — | names the block, the wasted pixels, and whether length or a page break is at fault |
+| **Content audit** | — | overselling, underselling, tense, unbacked skills, duplicates |
+| **Job-description match** | — | missing requirements, SKILLS-only claims, unrelated bullets |
+| **Usable by an AI agent** | — | MCP server, structured JSON |
 
 ## License
 

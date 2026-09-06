@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.3] - 2026-09-06
+
+### Changed
+
+- Package description and keywords rewritten around what people actually search
+  for. `resume-linter` had no package competing for it at all, while `markdown
+  resume` is crowded — so the wording leads with the linting and page-fit work
+  rather than with rendering, which is the part everyone already does.
+- README opens by stating what the tool does differently, and adds a section
+  comparing it with the existing Markdown resume renderers, including when to use
+  one of those instead.
+- Image alt text now describes the resumes shown rather than repeating the tool name.
+
 ## [0.1.2] - 2026-09-06
 
 ### Fixed
@@ -60,7 +73,8 @@ First release.
 - Two ATS-safe themes: `classic` and `compact`.
 - Example CVs in `examples/`, with and without a portrait photo.
 
-[Unreleased]: https://github.com/phuthuycoding/markcv/compare/v0.1.2...HEAD
+[Unreleased]: https://github.com/phuthuycoding/markcv/compare/v0.1.3...HEAD
+[0.1.3]: https://github.com/phuthuycoding/markcv/compare/v0.1.2...v0.1.3
 [0.1.2]: https://github.com/phuthuycoding/markcv/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/phuthuycoding/markcv/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/phuthuycoding/markcv/releases/tag/v0.1.0
