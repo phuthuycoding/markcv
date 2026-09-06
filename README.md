@@ -2,6 +2,7 @@
 
 [![CI](https://github.com/phuthuycoding/markcv/actions/workflows/ci.yml/badge.svg)](https://github.com/phuthuycoding/markcv/actions/workflows/ci.yml)
 [![npm](https://img.shields.io/npm/v/@phuthuycoding/markcv.svg)](https://www.npmjs.com/package/@phuthuycoding/markcv)
+[![docs](https://img.shields.io/badge/docs-markcv-c96442)](https://phuthuycoding.github.io/markcv/)
 
 <p align="center">
   <img src="docs/screenshots/engineering-lead.png" width="640" alt="Two-page ATS-safe resume PDF generated from Markdown by markcv">
