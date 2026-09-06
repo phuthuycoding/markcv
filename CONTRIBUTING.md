@@ -64,10 +64,20 @@ namespace and is never compared against anyone else's package.
 
 **Cutting a release**
 
-1. Bump `version` in `package.json` and commit.
-2. Publish a GitHub Release tagged `v<version>` — the tag must match `package.json`
+1. Add a section to `CHANGELOG.md` for the new version. The workflow reads it and
+   fails if it is missing or empty, so the changelog cannot be skipped.
+2. Bump `version` in `package.json` and commit both.
+3. Publish a GitHub Release tagged `v<version>` — the tag must match `package.json`
    or the workflow stops.
-3. `publish.yml` runs build and tests, refuses to republish an existing version, and
-   publishes with `--provenance`.
+4. `publish.yml` runs build and tests, checks the changelog entry, refuses to
+   republish an existing version, publishes with `--provenance`, and finally
+   rewrites the release notes from `CHANGELOG.md`.
+
+Release notes are generated rather than written twice, so the release page and the
+changelog cannot drift apart. Preview what a release will say:
+
+```bash
+npm run changelog 0.1.1
+```
 
 Rehearse first: run the **Publish to npm** workflow manually with `dry_run` left on.

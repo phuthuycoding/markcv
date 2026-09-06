@@ -15,7 +15,8 @@
     "dist",
     "themes",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "CHANGELOG.md"
   ],
   "engines": {
     "node": ">=18"
@@ -26,7 +27,8 @@
     "mcp": "node dist/mcp/server.js",
     "test": "node --test test/*.test.js",
     "prepublishOnly": "npm run build",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "changelog": "node scripts/changelog.mjs"
   },
   "keywords": [
     "cv",
