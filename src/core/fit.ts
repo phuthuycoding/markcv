@@ -35,6 +35,19 @@ export function analyseFit(
       });
     }
   }
+  // Nested elements can both report the same break; keep the outermost one per
+  // position so a list item and its paragraph are not counted twice.
+  const seen = new Set<number>();
+  const deduped = culprits
+    .sort((a, b) => a.top - b.top || b.wastedPx - a.wastedPx)
+    .filter((c) => {
+      const key = Math.round(c.top / 4);
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+  culprits.length = 0;
+  culprits.push(...deduped);
   culprits.sort((a, b) => b.wastedPx - a.wastedPx);
 
   const wastedByBreaksPx = culprits.reduce((sum, c) => sum + c.wastedPx, 0);

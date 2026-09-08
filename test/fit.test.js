@@ -33,3 +33,30 @@ test("no suggestions when it already fits", () => {
   assert.equal(r.fits, true);
   assert.equal(r.suggestions.length, 0);
 });
+
+test("a paragraph or list item pushed to a new page is reported too", () => {
+  const box = { widthPx: 695, heightPx: 1040 };
+  // No heading involved: a long list item sits too close to the page edge.
+  const r = analyseFit(
+    { contentHeight: 2048, blocks: [{ tag: "LI", title: "Managed the infrastructure and", top: 1020, clusterHeight: 40 }] },
+    box, 3, 2,
+  );
+  assert.equal(r.culprits.length, 1, "the list item should be named as a culprit");
+  assert.equal(r.culprits[0].tag, "LI");
+  assert.equal(r.culprits[0].wastedPx, 20);
+});
+
+test("nested blocks at the same position are not counted twice", () => {
+  const box = { widthPx: 695, heightPx: 1040 };
+  const r = analyseFit(
+    {
+      contentHeight: 2048,
+      blocks: [
+        { tag: "LI", title: "same spot", top: 1020, clusterHeight: 40 },
+        { tag: "P", title: "same spot", top: 1021, clusterHeight: 38 },
+      ],
+    },
+    box, 3, 2,
+  );
+  assert.equal(r.culprits.length, 1, "one break, one culprit");
+});

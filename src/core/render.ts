@@ -96,13 +96,22 @@ export async function render(opts: RenderOptions): Promise<RenderResult> {
     await page.goto(`file://${htmlPath}`, { waitUntil: "networkidle0" });
 
     const measure: RawMeasure = await page.evaluate(() => {
-      const blocks = [...document.querySelectorAll("h1, h2, h3")].map((el) => {
-        const top = el.getBoundingClientRect().top + window.scrollY;
-        // h2/h3 use break-after: avoid, so they stay glued to the element after them.
-        const next = el.nextElementSibling as HTMLElement | null;
+      // Anything the print stylesheet refuses to split can be pushed onto a new
+      // page: headings (break-after: avoid keeps them with what follows), and
+      // list items and paragraphs (break-inside: avoid keeps them whole).
+      // Measuring only headings misses the other two and reports a page break
+      // problem with no culprit to point at.
+      const nodes = [...document.querySelectorAll("h1, h2, h3, li, p")];
+
+      const blocks = nodes.map((el) => {
+        const rect = el.getBoundingClientRect();
+        const top = rect.top + window.scrollY;
+        const isHeading = /^H[1-3]$/.test(el.tagName);
+        // A heading is glued to the element after it, so the cluster spans both.
+        const next = isHeading ? (el.nextElementSibling as HTMLElement | null) : null;
         const bottom = next
           ? next.getBoundingClientRect().bottom + window.scrollY
-          : el.getBoundingClientRect().bottom + window.scrollY;
+          : rect.bottom + window.scrollY;
         return {
           tag: el.tagName,
           title: (el.textContent ?? "").trim().slice(0, 48),

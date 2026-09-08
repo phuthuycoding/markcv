@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.5] - 2026-09-06
+
+### Fixed
+
+- `fit` measured only headings, so a page break caused by a list item or a
+  paragraph was reported with an empty `culprits` list: it said the page break was
+  at fault but could not say which block. Both carry `break-inside: avoid` in the
+  print stylesheet and are pushed onto a new page whole, exactly like a heading.
+  All three are now measured, and nested blocks at the same position are reported
+  once rather than twice.
+
 ## [0.1.4] - 2026-09-06
 
 ### Fixed
@@ -83,7 +94,8 @@ First release.
 - Two ATS-safe themes: `classic` and `compact`.
 - Example CVs in `examples/`, with and without a portrait photo.
 
-[Unreleased]: https://github.com/phuthuycoding/markcv/compare/v0.1.4...HEAD
+[Unreleased]: https://github.com/phuthuycoding/markcv/compare/v0.1.5...HEAD
+[0.1.5]: https://github.com/phuthuycoding/markcv/compare/v0.1.4...v0.1.5
 [0.1.4]: https://github.com/phuthuycoding/markcv/compare/v0.1.3...v0.1.4
 [0.1.3]: https://github.com/phuthuycoding/markcv/compare/v0.1.2...v0.1.3
 [0.1.2]: https://github.com/phuthuycoding/markcv/compare/v0.1.1...v0.1.2
