@@ -12,7 +12,7 @@
 <meta property="og:url" content="https://phuthuycoding.github.io/markcv/">
 <meta property="og:image" content="https://phuthuycoding.github.io/markcv/screenshots/engineering-lead.png">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📄</text></svg>">
+<link rel="icon" href="images/logo-96.png">
 <style>
 :root{
   --bg:#faf9f5; --surface:#fffefb; --sunken:#f2efe6;
@@ -48,7 +48,7 @@ header{border-bottom:1px solid var(--line); position:sticky; top:0; background:c
 .nav{display:flex; align-items:center; justify-content:space-between; height:60px; gap:16px}
 .brand{display:flex; align-items:center; gap:9px; font-weight:650; letter-spacing:-.01em; color:var(--ink)}
 .brand:hover{text-decoration:none}
-.mark{width:26px;height:26px;border-radius:7px;background:var(--accent);display:grid;place-items:center;color:#fff;font-size:13px;font-weight:700}
+.mark{width:32px;height:32px;display:block;object-fit:contain}
 .nav nav{display:flex; gap:20px; font-size:14.5px; color:var(--ink-soft)}
 .nav nav a{color:var(--ink-soft)}
 .nav nav a:hover{color:var(--ink)}
@@ -56,6 +56,8 @@ header{border-bottom:1px solid var(--line); position:sticky; top:0; background:c
 
 /* hero */
 .hero{padding:76px 0 8px; text-align:center}
+.hero-logo{width:112px;height:112px;object-fit:contain;margin:0 auto 22px;display:block;filter:drop-shadow(0 12px 26px rgba(0,0,0,.16))}
+@media(max-width:720px){.hero-logo{width:88px;height:88px}}
 .pill{display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--ink-soft);background:var(--surface);border:1px solid var(--line);padding:5px 13px;border-radius:99px;margin-bottom:24px}
 .pill b{color:var(--accent-ink);font-weight:600}
 h1{font-size:clamp(34px,5.4vw,54px); line-height:1.1; letter-spacing:-.03em; margin:0 0 18px; font-weight:680}
@@ -113,6 +115,15 @@ td.yes{color:var(--ok);font-weight:560}
 pre.block{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:19px 21px;overflow-x:auto;font-size:13.5px;line-height:1.7;margin:0}
 .two{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));align-items:start}
 .lbl{font-size:13px;color:var(--ink-faint);margin:0 0 9px;font-weight:560}
+.skill-list{display:grid;gap:18px;align-content:start}
+.note{text-align:center;color:var(--ink-faint);font-size:14px;margin:26px 0 0}
+
+/* typing effect: hide until the script starts so the text does not flash in
+   fully rendered and then get wiped. .no-type is put back if TypeIt never loads. */
+.js .type-target{opacity:0}
+.js .type-target.typing,.js .type-target.no-type{opacity:1}
+.ti-cursor{color:var(--accent-ink);font-weight:400}
+@media (prefers-reduced-motion:reduce){.js .type-target{opacity:1}}
 
 .i{width:15px;height:15px;flex:0 0 auto}
 .btn .i{margin-right:-1px}
@@ -132,6 +143,7 @@ footer{border-top:1px solid var(--line);padding:34px 0;color:var(--ink-faint);fo
 .foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .foot a{color:var(--ink-soft)}
 </style>
+<script>document.documentElement.classList.add("js")</script>
 </head>
 <body>
 
@@ -144,11 +156,12 @@ footer{border-top:1px solid var(--line);padding:34px 0;color:var(--ink-faint);fo
 
 <header>
   <div class="wrap nav">
-    <a class="brand" href="#top"><span class="mark">m</span> markcv</a>
+    <a class="brand" href="#top"><img class="mark" src="images/logo-96.png" alt="" width="32" height="32"> markcv</a>
     <nav>
       <a href="#why">Why</a>
       <a href="#examples" class="hide-sm">Examples</a>
       <a href="#mcp">MCP</a>
+      <a href="#skills" class="hide-sm">Skills</a>
       <a href="#compare" class="hide-sm">Compare</a>
       <a href="https://github.com/phuthuycoding/markcv" class="ico"><svg class="i"><use href="#i-github"/></svg> GitHub</a>
     </nav>
@@ -158,6 +171,7 @@ footer{border-top:1px solid var(--line);padding:34px 0;color:var(--ink-faint);fo
 <main id="top">
 
 <div class="wrap hero">
+  <img class="hero-logo" src="images/logo-256.png" alt="markcv" width="112" height="112">
   <span class="pill">Markdown in, <b>ATS-safe PDF</b> out</span>
   <h1>Your CV does not fit two pages.<br>markcv tells you why.</h1>
   <p class="lede">Most Markdown resume tools stop at rendering. markcv starts there — it explains <em>which block</em> pushed your CV onto a third page, and audits the writing for the two failures that cost you interviews: <em>overselling</em> and <em>underselling</em>.</p>
@@ -169,8 +183,8 @@ footer{border-top:1px solid var(--line);padding:34px 0;color:var(--ink-faint);fo
   <div class="install"><span class="c-dim">$</span> <code>npm install -g @phuthuycoding/markcv</code></div>
 
   <div class="term">
-    <div class="term-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="term-title">markcv fit cv.md --pages 2</span></div>
-<pre><span class="c-bad">✗</span> 3 pages (target 2)
+    <div class="term-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="term-title type-target" id="hero-cmd">markcv fit cv.md --pages 2</span></div>
+<pre class="type-target" id="hero-out"><span class="c-bad">✗</span> 3 pages (target 2)
 <span class="c-dim">·</span> content 1986px / 2080px available
 <span class="c-dim">·</span> 31px wasted by page breaks
 
@@ -271,7 +285,38 @@ footer{border-top:1px solid var(--line);padding:34px 0;color:var(--ink-faint);fo
   </div>
 </section>
 
-<section class="alt" id="compare">
+<section class="alt" id="skills">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Skills ship with it too</h2>
+      <p>The MCP server hands an agent the tools. A <b>skill</b> is what tells it which cure a diagnosis calls for — "content has room" and "content too long" need opposite fixes — and what a bullet should sound like.</p>
+    </div>
+    <div class="two">
+      <div>
+        <div class="term">
+          <div class="term-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="term-title type-target" id="skills-cmd">markcv skills install</span></div>
+<pre class="type-target" id="skills-out"><span class="c-ok">✓</span> markcv → ~/.claude/skills/markcv
+<span class="c-ok">✓</span> topcv  → ~/.claude/skills/topcv
+
+<span class="c-dim">Restart your agent to pick the skills up.</span></pre>
+        </div>
+      </div>
+      <div class="skill-list">
+        <div class="card">
+          <h3><code>markcv</code> Writing a CV</h3>
+          <p>Reading a fit report without cutting the wrong thing, the lint rules, bullet style — strong verb, scope, result, no narrating the process — and keeping several tailored variants in sync.</p>
+        </div>
+        <div class="card">
+          <h3><code>topcv</code> Publishing it</h3>
+          <p>Pushing a Markdown CV to <a href="https://www.topcv.vn">TopCV.vn</a>, both the CV builder and the profile page. Needs the chrome-devtools MCP server alongside this one.</p>
+        </div>
+      </div>
+    </div>
+    <p class="note">Already-installed skills are left alone, so your own edits survive an upgrade.</p>
+  </div>
+</section>
+
+<section id="compare">
   <div class="wrap">
     <div class="sec-head">
       <h2>Do you need this one?</h2>
@@ -291,7 +336,7 @@ footer{border-top:1px solid var(--line);padding:34px 0;color:var(--ink-faint);fo
   </div>
 </section>
 
-<section>
+<section class="alt">
   <div class="wrap" style="text-align:center">
     <h2 style="margin-bottom:14px">Start with one command</h2>
     <p class="lede" style="margin-bottom:26px">Write the CV in Markdown you already know. Let the tool argue with you about the rest.</p>
@@ -324,6 +369,51 @@ footer{border-top:1px solid var(--line);padding:34px 0;color:var(--ink-faint);fo
     </div>
   </div>
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/typeit@8.8.7/dist/index.umd.js"></script>
+<script>
+// Go chu cho hai terminal. Noi dung that nam san trong HTML, script chi xoa di
+// roi go lai — nen khong co JS, CDN chet hay nguoi dung tat hieu ung thi trang
+// van doc duoc day du.
+(function () {
+  var targets = [].slice.call(document.querySelectorAll(".type-target"));
+  if (!targets.length) return;
+
+  var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduced || typeof TypeIt === "undefined") {
+    targets.forEach(function (el) { el.classList.add("no-type"); });
+    return;
+  }
+
+  function type(el, done) {
+    var html = el.innerHTML;
+    el.innerHTML = "";
+    el.classList.add("typing");
+    new TypeIt(el, {
+      strings: [html],
+      // Output dai nen go nhanh: nguoi doc den day de xem ket qua, khong phai cho.
+      speed: el.tagName === "PRE" ? 4 : 34,
+      cursorChar: "▋",
+      waitUntilVisible: true,
+      afterComplete: function (inst) {
+        inst.destroy();
+        el.innerHTML = html; // tra lai DOM sach, bo con tro
+        if (done) done();
+      }
+    }).go();
+  }
+
+  // Lenh go truoc, xong moi den output — dung thu tu cua mot phien terminal that.
+  function pair(cmdId, outId) {
+    var cmd = document.getElementById(cmdId), out = document.getElementById(outId);
+    if (!cmd || !out) return;
+    type(cmd, function () { type(out); });
+  }
+
+  pair("hero-cmd", "hero-out");
+  pair("skills-cmd", "skills-out");
+})();
+</script>
 
 <script>
 // So star that tu GitHub. Neu API loi hoac bi rate-limit thi khong hien gi ca,

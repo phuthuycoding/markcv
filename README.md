@@ -1,11 +1,15 @@
-# markcv
+<p align="center">
+  <img src="https://raw.githubusercontent.com/phuthuycoding/markcv/master/docs/images/logo-256.png" width="104" alt="markcv logo">
+</p>
+
+<h1 align="center">markcv</h1>
 
 [![CI](https://github.com/phuthuycoding/markcv/actions/workflows/ci.yml/badge.svg)](https://github.com/phuthuycoding/markcv/actions/workflows/ci.yml)
 [![npm](https://img.shields.io/npm/v/@phuthuycoding/markcv.svg)](https://www.npmjs.com/package/@phuthuycoding/markcv)
 [![docs](https://img.shields.io/badge/docs-markcv-c96442)](https://phuthuycoding.github.io/markcv/)
 
 <p align="center">
-  <img src="docs/screenshots/engineering-lead.png" width="640" alt="Two-page ATS-safe resume PDF generated from Markdown by markcv">
+  <img src="https://raw.githubusercontent.com/phuthuycoding/markcv/master/docs/screenshots/engineering-lead.png" width="640" alt="Two-page ATS-safe resume PDF generated from Markdown by markcv">
   <br>
   <sub><code>examples/engineering-lead.md</code> — plain Markdown in, two-page A4 PDF out</sub>
 </p>
@@ -104,9 +108,9 @@ how the same format stretches. Each one builds with the default theme and no pho
 
 <table>
 <tr>
-<td width="33%"><a href="docs/screenshots/backend-engineer.png"><img src="docs/screenshots/backend-engineer.png" alt="Backend engineer resume built from Markdown"></a></td>
-<td width="33%"><a href="docs/screenshots/engineering-lead.png"><img src="docs/screenshots/engineering-lead.png" alt="Engineering lead resume, two pages, ATS-safe"></a></td>
-<td width="33%"><a href="docs/screenshots/data-scientist.png"><img src="docs/screenshots/data-scientist.png" alt="Data scientist resume, one page"></a></td>
+<td width="33%"><a href="docs/screenshots/backend-engineer.png"><img src="https://raw.githubusercontent.com/phuthuycoding/markcv/master/docs/screenshots/backend-engineer.png" alt="Backend engineer resume built from Markdown"></a></td>
+<td width="33%"><a href="docs/screenshots/engineering-lead.png"><img src="https://raw.githubusercontent.com/phuthuycoding/markcv/master/docs/screenshots/engineering-lead.png" alt="Engineering lead resume, two pages, ATS-safe"></a></td>
+<td width="33%"><a href="docs/screenshots/data-scientist.png"><img src="https://raw.githubusercontent.com/phuthuycoding/markcv/master/docs/screenshots/data-scientist.png" alt="Data scientist resume, one page"></a></td>
 </tr>
 <tr>
 <td align="center"><a href="examples/backend-engineer.md">backend-engineer.md</a><br><sub>1 page</sub></td>
@@ -123,7 +127,7 @@ Vietnam, Japan or Germany's more traditional employers usually does. Drop a
 
 <p align="center">
   <a href="docs/screenshots/fullstack-engineer-photo.png">
-    <img src="docs/screenshots/fullstack-engineer-photo.png" width="440" alt="Markdown resume with a portrait photo in the header">
+    <img src="https://raw.githubusercontent.com/phuthuycoding/markcv/master/docs/screenshots/fullstack-engineer-photo.png" width="440" alt="Markdown resume with a portrait photo in the header">
   </a>
   <br>
   <sub><a href="examples/with-photo/fullstack-engineer.md">examples/with-photo/fullstack-engineer.md</a> — one page, photo auto-detected</sub>
