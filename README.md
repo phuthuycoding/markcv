@@ -17,6 +17,26 @@ Runs as a CLI and as an **MCP server**, so an AI agent can do both on its own.
 - **`fit`** tells you *why* your CV does not fit on 2 pages. "Content too long" and "bad page break" are different illnesses with opposite cures — trimming words while the real culprit is a heading sitting 31px from the bottom of page 1 just wastes your time.
 - **`lint`** checks *content*, not formatting. It catches overselling **and underselling** — claiming less than you did is a mistake too, and it costs you something while gaining nothing.
 
+## Contents
+
+- [Install](#install)
+- [Usage](#usage)
+  - [`fit` — page-break diagnosis](#fit--page-break-diagnosis)
+  - [`lint` — rules](#lint--rules)
+- [Examples](#examples)
+  - [With a portrait photo](#with-a-portrait-photo)
+- [MCP server](#mcp-server)
+  - [Register it with a client](#register-it-with-a-client)
+  - [File paths in tool arguments](#file-paths-in-tool-arguments)
+  - [Tools](#tools)
+  - [Requirements](#requirements)
+- [Agent skills](#agent-skills)
+- [CV format](#cv-format)
+- [Themes](#themes)
+- [How this differs from other Markdown resume tools](#how-this-differs-from-other-markdown-resume-tools)
+- [Author](#author)
+- [License](#license)
+
 ## Install
 
 ```bash
