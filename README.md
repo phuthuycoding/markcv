@@ -44,6 +44,7 @@ markcv new techlead --from cv-master.md
 markcv list                           # every CV in the folder
 markcv diff cv-a.md cv-b.md           # what a tailored copy dropped
 markcv build --pages 2                # build every cv-*.md
+markcv skills install                 # install the agent skills (see below)
 ```
 
 ### `fit` — page-break diagnosis
@@ -193,6 +194,44 @@ If it is in a non-standard location:
 ```json
 { "mcpServers": { "markcv": { "command": "node", "args": ["..."],
   "env": { "MARKCV_CHROME": "/path/to/chrome" } } } }
+```
+
+## Agent skills
+
+The MCP server gives an agent the *tools*. Skills give it the *judgement* — when a
+page-break diagnosis means "reorder", when it means "cut", and what a bullet should sound
+like. They are plain Markdown files an agent reads on demand.
+
+```bash
+markcv skills               # what ships with the package
+markcv skills install       # copy into ~/.claude/skills
+markcv skills install topcv # just one
+```
+
+| Skill | What it covers |
+|---|---|
+| `markcv` | Writing and auditing a CV with markcv: reading a `fit` report correctly, the `lint` rules, bullet style, keeping several variants in sync. |
+| `topcv` | Publishing a Markdown CV to [TopCV.vn](https://www.topcv.vn) (Vietnamese job market) — both the CV builder and the profile page. |
+
+Existing skills are never overwritten, so your own edits survive; pass `--force` when you
+do want the bundled version back. Restart the agent afterwards so it sees them.
+
+The `topcv` skill drives a real browser and additionally needs the **chrome-devtools MCP
+server**:
+
+```json
+{
+  "mcpServers": {
+    "chrome-devtools": {
+      "command": "npx",
+      "args": ["-y", "chrome-devtools-mcp@latest", "--autoConnect"]
+    }
+  }
+}
+```
+
+```bash
+claude mcp add chrome-devtools -- npx -y chrome-devtools-mcp@latest --autoConnect
 ```
 
 ## CV format

@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-09-09
+
+### Added
+
+- Agent skills bundled with the package, plus `markcv skills` to list them and
+  `markcv skills install [names...]` to copy them into `~/.claude/skills`
+  (`--dest` to install elsewhere, `--force` to overwrite). The MCP server hands an
+  agent the tools; a skill is what tells it which cure a given `fit` diagnosis calls
+  for, and what a bullet should sound like. Two ship today: `markcv` for writing and
+  auditing a CV, and `topcv` for publishing one to TopCV.vn. An already-installed
+  skill is left alone unless `--force` is passed, so local edits are never lost.
+
 ## [0.1.5] - 2026-09-06
 
 ### Fixed
@@ -94,7 +106,8 @@ First release.
 - Two ATS-safe themes: `classic` and `compact`.
 - Example CVs in `examples/`, with and without a portrait photo.
 
-[Unreleased]: https://github.com/phuthuycoding/markcv/compare/v0.1.5...HEAD
+[Unreleased]: https://github.com/phuthuycoding/markcv/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/phuthuycoding/markcv/compare/v0.1.5...v0.2.0
 [0.1.5]: https://github.com/phuthuycoding/markcv/compare/v0.1.4...v0.1.5
 [0.1.4]: https://github.com/phuthuycoding/markcv/compare/v0.1.3...v0.1.4
 [0.1.3]: https://github.com/phuthuycoding/markcv/compare/v0.1.2...v0.1.3

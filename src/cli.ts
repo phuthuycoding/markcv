@@ -7,6 +7,7 @@ import { analyseFit } from "./core/fit.js";
 import { lint } from "./core/lint.js";
 import { tailor } from "./core/tailor.js";
 import { newVariant, listVariants, diffVariants } from "./core/variants.js";
+import { listSkills, installSkills } from "./core/skills.js";
 import { c, ok, bad, warn, info } from "./ui.js";
 import { VERSION } from "./version.js";
 import type { FitReport, LintFinding } from "./types.js";
@@ -181,6 +182,49 @@ program
       const fit = analyseFit(res.measure, res.pageBox, res.pdfPages ?? 0, o.pages);
       const mark = fit.fits ? c.green("✓") : c.red("✗");
       console.log(`${mark} ${f.padEnd(34)} ${fit.pages} page(s)  ${c.dim(fit.fits ? "" : fit.suggestions[0] ?? "")}`);
+    }
+  });
+
+const skillsCmd = program
+  .command("skills")
+  .description("Agent skills bundled with markcv (for Claude Code and other agents)");
+
+skillsCmd
+  .command("list", { isDefault: true })
+  .description("List the bundled skills")
+  .action(() => {
+    const skills = listSkills();
+    if (!skills.length) return console.log(warn("no bundled skills found"));
+    for (const s of skills) {
+      console.log(`${c.cyan(s.name)}  ${c.dim(s.description)}`);
+    }
+    console.log(`\n${c.dim("install with")} markcv skills install`);
+  });
+
+skillsCmd
+  .command("install [names...]")
+  .description("Copy skills into ~/.claude/skills (all of them when no name is given)")
+  .option("-d, --dest <dir>", "install somewhere else")
+  .option("-f, --force", "overwrite a skill that is already installed")
+  .action((names: string[], o) => {
+    let results;
+    try {
+      results = installSkills({ names, dest: o.dest, force: o.force });
+    } catch (err) {
+      // A bad skill name or a broken install is the user's problem to fix, not a
+      // crash to dump a stack trace over.
+      console.error(bad(err instanceof Error ? err.message : String(err)));
+      process.exitCode = 1;
+      return;
+    }
+    for (const r of results) {
+      if (r.written) console.log(ok(`${r.name} → ${r.target}`));
+      else console.log(info(`${r.name} already installed, kept as is ${c.dim("(--force to overwrite)")}`));
+    }
+    const wrote = results.filter((r) => r.written).length;
+    if (wrote) console.log(`\n${c.dim("Restart your agent to pick the skills up.")}`);
+    if (results.some((r) => r.name === "topcv" && r.written)) {
+      console.log(info("the topcv skill also needs the chrome-devtools MCP server — see its SKILL.md"));
     }
   });
 
